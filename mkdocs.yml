@@ -110,7 +110,7 @@ nav:
         - Retrieving services: using-botcommands/dependency-injection/retrieving-services.md
       - Using events: using-botcommands/events.md
       - Database: using-botcommands/database.md
-#      - Rate limiting: foo
+      - Rate limiting: using-botcommands/ratelimit.md
 #      - Localization: foo
       - Kotlin extensions: using-botcommands/extensions.md
       - Java parameter names: using-botcommands/parameter-names.md
