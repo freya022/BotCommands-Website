@@ -54,6 +54,9 @@ However, you can also create a custom one by implementing [`RateLimiter`](https:
 
     When making a custom rate limiter, you can delegate one of the default implementations to avoid reimplementing existing behavior.
 
+You can also use [`BucketKeySupplier`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.ratelimit.bucket/-bucket-key-supplier/index.html) to help you define functions
+returning a bucket key (an identifier basically), based on the execution context.
+
 ### Registering the rate limiter
 You can now register using [`RateLimitManager#rateLimit(String, RateLimiter)`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.ratelimit.declaration/-rate-limit-manager/rate-limit.html),
 the `group` (name of the rate limiter) must be unique.
