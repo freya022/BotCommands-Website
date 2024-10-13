@@ -162,7 +162,7 @@
         <dependency>
             <groupId>io.github.freya022</groupId>
             <artifactId>BotCommands</artifactId>
-            <version>3.0.0-alpha.20</version>
+            <version>3.0.0-alpha.20_DEV</version>
         </dependency>
 
         <!-- Needed for JDA and BotCommands logging -->

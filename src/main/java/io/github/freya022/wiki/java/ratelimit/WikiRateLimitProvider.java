@@ -22,8 +22,8 @@ public class WikiRateLimitProvider implements RateLimitProvider {
     @Override
     public void declareRateLimit(@NotNull RateLimitManager rateLimitManager) {
         // Lets the user use the command 5 times in an hour, but also 2 times in 2 minutes to prevent spam
-        final var bucketConfiguration = Buckets.spikeProtected(
-                5,              // 5 uses
+        final var bucketConfiguration = Buckets.createSpikeProtected(
+                5,                      // 5 uses
                 Duration.ofHours(1),    // Gives 5 tokens gradually, during an hour (1 token every 12 minutes)
                 2,                      // 2 uses
                 Duration.ofMinutes(2)   // Give 2 tokens every 2 minutes
