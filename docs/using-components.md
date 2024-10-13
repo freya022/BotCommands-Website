@@ -206,6 +206,8 @@ Now that your filter has been created, you can reference it in your component.
 Just like application commands, components can be rate limited.
 However, you will need to help the library differentiate components from each other (unlike commands which are differentiated by their names).
 
+!!! info "Learn how to create a rate limiter on the [Rate limiting wiki](./using-botcommands/ratelimit.md)"
+
 You will first need to create a [[ComponentRateLimitReference]],
 you can do that with [`createRateLimitReference`][[AbstractComponentFactory#createRateLimitReference]],
 present in any component factory ([[Components]], [[Buttons]], [[SelectMenus]]).
