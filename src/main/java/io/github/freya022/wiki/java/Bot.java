@@ -37,6 +37,8 @@ public class Bot extends JDAService {
 
     @Override
     public void createJDA(@NotNull BReadyEvent event, @NotNull IEventManager eventManager) {
+        // This uses JDABuilder#createLight, with the intents and the additional cache flags set above
+        // It also sets the EventManager and a special rate limiter
         light(config.getToken())
                 .setActivity(Activity.customStatus("In Java with ❤️"))
                 .build();

@@ -185,6 +185,14 @@ and still be able to get it as a service.
 Now you've been able to start the framework, all your services (such as `Config` for the moment) should be loaded, 
 but you must now have a way to start JDA, implementing `JDAService` will let you start the bot in a convenient place.
 
+Implementing `JDAService` guarantees that your bot will connect at the right time,
+and provides a way for the framework to check missing intents and missing cache flags before your bot even starts.
+
+!!! warning "Spring properties"
+
+    If you use Spring, you will need to set gateway intents and cache flags in your environment,
+    using `jda.intents` and `jda.cache-flags` respectively.
+
 === "Kotlin"
 
     ```kotlin
@@ -197,17 +205,14 @@ but you must now have a way to start JDA, implementing `JDAService` will let you
     --8<-- "wiki/java/Bot.java:jdaservice-java"
     ```
 
-!!! info
-
-    Implementing `JDAService` guarantees that your bot will connect at the right time, 
-    and provides a way for the framework to check missing intents and missing cache flags before your bot even starts.
-
-    You can retrieve a `JDA` instance once this service has finished constructing, 
-    this also implies that you cannot request a `JDA` before `InjectedJDAEvent` has fired.
-
 You can now run your bot!
 Assuming you have done your config class and provided at least the token and owner IDs, 
 you should be able to run the help command, by mentioning your bot `@YourBot help`.
+
+!!! tip
+
+    If necessary, you can retrieve a `JDA` instance once `createJDA` has been called, 
+    I recommend listening to `InjectedJDAEvent`, but you can also get one later, using `BContext#jda`.
 
 ## Optional - Add `stacktrace-decoroutinator`
 

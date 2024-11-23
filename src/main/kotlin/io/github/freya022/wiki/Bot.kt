@@ -20,6 +20,8 @@ class Bot(private val config: Config) : JDAService() {
     override val cacheFlags: Set<CacheFlag> = setOf(/* _Additional_ cache flags */ CacheFlag.VOICE_STATE)
 
     override fun createJDA(event: BReadyEvent, eventManager: IEventManager) {
+        // This uses JDABuilder#createLight, with the intents and the additional cache flags set above
+        // It also sets the EventManager and a special rate limiter
         light(
             config.token,
             activity = Activity.customStatus("In Kotlin with ❤️")
