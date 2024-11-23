@@ -127,6 +127,16 @@ where you can directly give the connection details, that's it.
 The framework's tables may be automatically created and migrated on updates,
 while the migration scripts uses a naming scheme compatible with Flyway, it may work with other migration libraries.
 
+??? info "How Flyway works, simplified"
+
+    The library maintains it's own table, which contains the migration scripts it has executed,
+    including some data about them, like their hash.
+
+    When you run it, Flyway will check the migrations it found, in the location you told it to look into,
+    and then checks which one already ran, in the chronological order (that's why you name them following a pattern).
+
+    Migrations that were not applied will run, after which they can't be modified anymore.
+
 !!! note "Using [`ServiceLoader`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/ServiceLoader.html)-based libraries"
 
     Libraries like Flyway, PostgreSQL and SLF4J,
@@ -137,24 +147,31 @@ while the migration scripts uses a naming scheme compatible with Flyway, it may 
 
     You can see how it's done in [this Setup section](../setup/getting-started.md#creating-a-runnable-jar).
 
-!!! example "Migration using Flyway"
+### Migrating the framework schema
+After creating your `ConnectionSupplier`, you can run:
 
-    You can run this after creating your database:
+```java
+Flyway.configure()
+    .dataSource(source) // Your already existing data source
+    .schemas("bc") // The name of the internal schema
+    .locations("bc_database_scripts") // Where the migration scripts are located
+    .validateMigrationNaming(true)
+    .loggers("slf4j") // Both JDA and BC logs using SLF4J
+    .load()
+    .migrate() // Create or update existing schema
+```
 
-    ```java
-    Flyway.configure()
-        .dataSource(source) // Your already existing data source
-        .schemas("bc") // The name of the internal schema
-        .locations("bc_database_scripts") // Where the migration scripts are located
-        .validateMigrationNaming(true)
-        .loggers("slf4j") // Both JDA and BC logs using SLF4J
-        .load()
-        .migrate() // Create or update existing schema
-    ```
+### Migrating your own schema
+Migrating your own schema is very similar to the code above, here are a few guidelines:
 
-!!! tip
-
-    You can also use the same code to migrate your own database, using similar migration scripts.
+1. Replace the schema (`bc`) with your own
+2. Replace the location of your migration scripts (`bc_database_scripts`) to your own (like `[bot name]_database_scripts)`
+3. Each migration script must be named similar to `V[version].[date]__[Description_text].sql`, for example:
+   `V1.2.3.2024.11.23__Add_tags.sql`
+4. After running a migration script, it cannot be modified. You can always delete your schema to start over.
+5. Do not use `#!sql IF NOT EXISTS` in your SQL,
+   it is not necessary since your schema should be empty (or even non-existant) when the migrations run,
+   and will cause unexpected issues if data definitions already exist.
 
 ## Configuration
 ### Logging statements
