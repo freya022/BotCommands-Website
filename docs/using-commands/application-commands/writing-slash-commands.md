@@ -301,11 +301,11 @@ Adding choices is very straight forward, you only have to give a list of choices
 !!! info "Learn how to create an autocomplete handler [here](using-autocomplete.md)"
 
 Enabling autocompletion for an option is done by referencing an existing handler,
-either using [autocompleteByFunction](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.builder/-slash-command-option-builder/autocomplete-by-function.html) or [autocompleteByName](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.builder/-slash-command-option-builder/autocomplete-by-name.html).
+either using [`autocompleteByFunction`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.options.builder/-slash-command-option-builder/autocomplete-by-function.html) or [`autocompleteByName`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.options.builder/-slash-command-option-builder/autocomplete-by-name.html).
 
 !!! tip
 
-    I recommend using [autocompleteByFunction](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.builder/-slash-command-option-builder/autocomplete-by-function.html) 
+    I recommend using [`autocompleteByFunction`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.options.builder/-slash-command-option-builder/autocomplete-by-function.html) 
     as it avoids typing the name twice.
 
 !!! example
@@ -415,4 +415,4 @@ or any package it is in.
 
 ## Examples
 
-You can take a look at more examples [here](https://github.com/freya022/BotCommands/tree/3.X/examples#examples).
+You can take a look at more examples [here](https://github.com/freya022/BotCommands/tree/3.X/src/examples#examples).
