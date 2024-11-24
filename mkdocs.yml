@@ -32,6 +32,8 @@ theme:
 
 plugins:
   - search
+  - macros:
+      on_undefined: strict
   - mike
 
 site_name: BotCommands Wiki
@@ -50,6 +52,14 @@ extra:
       link: https://github.com/freya022/BotCommands-Wiki/tree/3.X
     - icon: fontawesome/brands/discord
       link: https://discord.gg/frpCcQfvTz
+  wiki_stub: |
+    !!! note
+        This is a wiki stub, while this allows you to know such features exist,
+        there is little to no content about it, however, you can:
+  
+        * Ask questions about it in the [support server](https://discord.gg/frpCcQfvTz)
+        * Help create this wiki by contributing directly, or by suggesting what topics should be explained,
+          how they should be structured, give relevant use cases/examples...
 
 markdown_extensions:
   - admonition
