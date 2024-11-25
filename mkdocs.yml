@@ -105,6 +105,7 @@ nav:
         - using-botcommands/dependency-injection/index.md
         - Creating services: using-botcommands/dependency-injection/creating-services.md
         - Retrieving services: using-botcommands/dependency-injection/retrieving-services.md
+      - Using events: using-botcommands/events.md
       - Database: using-botcommands/database.md
 #      - Rate limiting: foo
 #      - Localization: foo
