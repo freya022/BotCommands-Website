@@ -8,22 +8,28 @@
       
       
       
+        <link rel="canonical" href="https://bc.freya02.dev/3.0.0-alpha.20/using-botcommands/events/">
       
       
+        <link rel="prev" href="../dependency-injection/retrieving-services/">
       
-      <link rel="icon" href="/3.0.0-alpha.20/assets/logo-round.svg">
+      
+        <link rel="next" href="../database/">
+      
+      
+      <link rel="icon" href="../../assets/logo-round.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
     
     
       
-        <title>BotCommands Wiki</title>
+        <title>Using events - BotCommands Wiki</title>
       
     
     
-      <link rel="stylesheet" href="/3.0.0-alpha.20/assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="/3.0.0-alpha.20/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -42,9 +48,9 @@
       
     
     
-      <link rel="stylesheet" href="/3.0.0-alpha.20/css/open_in_new_tab.css">
+      <link rel="stylesheet" href="../../css/open_in_new_tab.css">
     
-    <script>__md_scope=new URL("/3.0.0-alpha.20",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -69,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#using-events" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -83,9 +94,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/3.0.0-alpha.20/." title="BotCommands Wiki" class="md-header__button md-logo" aria-label="BotCommands Wiki" data-md-component="logo">
+    <a href="../.." title="BotCommands Wiki" class="md-header__button md-logo" aria-label="BotCommands Wiki" data-md-component="logo">
       
-  <img src="/3.0.0-alpha.20/assets/logo-transparent.svg" alt="logo">
+  <img src="../../assets/logo-transparent.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -102,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Using events
             
           </span>
         </div>
@@ -209,7 +220,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/3.0.0-alpha.20/." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
     
@@ -228,7 +239,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/3.0.0-alpha.20/setup/getting-started/" class="md-tabs__link">
+        <a href="../../setup/getting-started/" class="md-tabs__link">
           
   
     
@@ -244,17 +255,21 @@
         
   
   
+    
+  
   
     
     
       
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/3.0.0-alpha.20/using-botcommands/dependency-injection/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../dependency-injection/" class="md-tabs__link">
           
   
     
@@ -277,7 +292,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/3.0.0-alpha.20/using-commands/common-command-details/" class="md-tabs__link">
+        <a href="../../using-commands/common-command-details/" class="md-tabs__link">
           
   
     
@@ -295,7 +310,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/3.0.0-alpha.20/using-components/" class="md-tabs__link">
+      <a href="../../using-components/" class="md-tabs__link">
         
   
     
@@ -348,9 +363,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/3.0.0-alpha.20/." title="BotCommands Wiki" class="md-nav__button md-logo" aria-label="BotCommands Wiki" data-md-component="logo">
+    <a href="../.." title="BotCommands Wiki" class="md-nav__button md-logo" aria-label="BotCommands Wiki" data-md-component="logo">
       
-  <img src="/3.0.0-alpha.20/assets/logo-transparent.svg" alt="logo">
+  <img src="../../assets/logo-transparent.svg" alt="logo">
 
     </a>
     BotCommands Wiki
@@ -377,7 +392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -441,7 +456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/setup/getting-started/" class="md-nav__link">
+      <a href="../../setup/getting-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -462,7 +477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/setup/logging/" class="md-nav__link">
+      <a href="../../setup/logging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -487,8 +502,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -505,17 +522,20 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -526,7 +546,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Using BotCommands
@@ -565,7 +585,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/3.0.0-alpha.20/using-botcommands/dependency-injection/" class="md-nav__link ">
+            <a href="../dependency-injection/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -598,7 +618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-botcommands/dependency-injection/creating-services/" class="md-nav__link">
+      <a href="../dependency-injection/creating-services/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -619,7 +639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-botcommands/dependency-injection/retrieving-services/" class="md-nav__link">
+      <a href="../dependency-injection/retrieving-services/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -645,10 +665,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-botcommands/events/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Using events
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -657,6 +697,170 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conditional-event-listeners-based-on-available-intents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditional event listeners based on available intents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#listening-to-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Listening to events
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lifecycle-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lifecycle events
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lifecycle events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialization events
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Initialization events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-change-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status change event
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-load-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-load event
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load event
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-load-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-load event
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ready-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ready event
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#injected-jda-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      Injected JDA event
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-guild-ready-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      First guild ready event
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jda-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      JDA events
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JDA events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#injectedjdaevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      InjectedJDAEvent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firstguildreadyevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      FirstGuildReadyEvent
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -669,7 +873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-botcommands/database/" class="md-nav__link">
+      <a href="../database/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -690,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-botcommands/extensions/" class="md-nav__link">
+      <a href="../extensions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -711,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-botcommands/parameter-names/" class="md-nav__link">
+      <a href="../parameter-names/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -785,7 +989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-commands/common-command-details/" class="md-nav__link">
+      <a href="../../using-commands/common-command-details/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -852,7 +1056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-commands/application-commands/writing-slash-commands/" class="md-nav__link">
+      <a href="../../using-commands/application-commands/writing-slash-commands/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -873,7 +1077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-commands/application-commands/using-autocomplete/" class="md-nav__link">
+      <a href="../../using-commands/application-commands/using-autocomplete/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -894,7 +1098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-commands/application-commands/option-resolvers/" class="md-nav__link">
+      <a href="../../using-commands/application-commands/option-resolvers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -923,7 +1127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-commands/advanced-options/" class="md-nav__link">
+      <a href="../../using-commands/advanced-options/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -951,7 +1155,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/3.0.0-alpha.20/using-components/" class="md-nav__link">
+      <a href="../../using-components/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -996,8 +1200,72 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+    <a href="https://github.com/freya022/BotCommands-Wiki/edit/3.X/docs/using-botcommands/events.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="using-events">Using events<a class="headerlink" href="#using-events" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a wiki stub, while this allows you to know such features exist,
+there is little to no content about it, however, you can:</p>
+<ul>
+<li>Ask questions about it in the <a href="https://discord.gg/frpCcQfvTz">support server</a></li>
+<li>Help create this wiki by contributing directly, or by suggesting what topics should be explained,
+  how they should be structured, give relevant use cases/examples...</li>
+</ul>
+</div>
+<h2 id="conditional-event-listeners-based-on-available-intents">Conditional event listeners based on available intents<a class="headerlink" href="#conditional-event-listeners-based-on-available-intents" title="Permanent link">&para;</a></h2>
+<p>Use <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.conditions/-required-intents/index.html"><code class="highlight"><span class="nd">@RequiredIntents</span></code></a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can also use <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.conditions/-required-intents/index.html"><code class="highlight"><span class="nd">@RequiredIntents</span></code></a> for classes other than events listeners, for example,
+you might toggle an entire feature off if the required intents are not enabled.</p>
+</div>
+<h2 id="listening-to-events">Listening to events<a class="headerlink" href="#listening-to-events" title="Permanent link">&para;</a></h2>
+<p>Use <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.annotations/-b-event-listener/index.html"><code class="highlight"><span class="nd">@BEventListener</span></code></a>.</p>
+<h2 id="lifecycle-events">Lifecycle events<a class="headerlink" href="#lifecycle-events" title="Permanent link">&para;</a></h2>
+<p>Here is a list of events in the order they fire:</p>
+<h3 id="initialization-events">Initialization events<a class="headerlink" href="#initialization-events" title="Permanent link">&para;</a></h3>
+<h4 id="status-change-event">Status change event<a class="headerlink" href="#status-change-event" title="Permanent link">&para;</a></h4>
+<p>See <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.events/-b-status-change-event/index.html"><code>BStatusChangeEvent</code></a>.</p>
+<h4 id="pre-load-event">Pre-load event<a class="headerlink" href="#pre-load-event" title="Permanent link">&para;</a></h4>
+<p>See <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.events/-pre-load-event/index.html"><code>PreLoadEvent</code></a>.</p>
+<h4 id="load-event">Load event<a class="headerlink" href="#load-event" title="Permanent link">&para;</a></h4>
+<p>See <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.events/-load-event/index.html"><code>LoadEvent</code></a>.</p>
+<h4 id="post-load-event">Post-load event<a class="headerlink" href="#post-load-event" title="Permanent link">&para;</a></h4>
+<p>See <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.events/-post-load-event/index.html"><code>PostLoadEvent</code></a>.</p>
+<h4 id="ready-event">Ready event<a class="headerlink" href="#ready-event" title="Permanent link">&para;</a></h4>
+<p>See <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.events/-b-ready-event/index.html"><code>BReadyEvent</code></a>.</p>
+<h3 id="injected-jda-event">Injected JDA event<a class="headerlink" href="#injected-jda-event" title="Permanent link">&para;</a></h3>
+<p>See <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.events/-injected-j-d-a-event/index.html"><code>InjectedJDAEvent</code></a>.</p>
+<h3 id="first-guild-ready-event">First guild ready event<a class="headerlink" href="#first-guild-ready-event" title="Permanent link">&para;</a></h3>
+<p>See <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.events/-first-guild-ready-event/index.html"><code>FirstGuildReadyEvent</code></a>.</p>
+<h2 id="jda-events">JDA events<a class="headerlink" href="#jda-events" title="Permanent link">&para;</a></h2>
+<h3 id="injectedjdaevent">InjectedJDAEvent<a class="headerlink" href="#injectedjdaevent" title="Permanent link">&para;</a></h3>
+<p>See <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.events/-injected-j-d-a-event/index.html"><code>InjectedJDAEvent</code></a>.</p>
+<h3 id="firstguildreadyevent">FirstGuildReadyEvent<a class="headerlink" href="#firstguildreadyevent" title="Permanent link">&para;</a></h3>
+<p>See <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.events/-first-guild-ready-event/index.html"><code>FirstGuildReadyEvent</code></a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -1070,12 +1338,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/3.0.0-alpha.20", "features": ["navigation.indexes", "navigation.instant", "navigation.tabs", "toc.integrate", "content.code.annotate", "content.code.copy", "content.action.edit", "content.tabs.link"], "search": "/3.0.0-alpha.20/assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.instant", "navigation.tabs", "toc.integrate", "content.code.annotate", "content.code.copy", "content.action.edit", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="/3.0.0-alpha.20/assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
-        <script src="/3.0.0-alpha.20/js/open_in_new_tab.js"></script>
+        <script src="../../js/open_in_new_tab.js"></script>
       
     
   </body>
