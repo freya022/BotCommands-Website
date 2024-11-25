@@ -2,62 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-components/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/setup/getting-started/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/setup/logging/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-botcommands/database/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-botcommands/extensions/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-botcommands/parameter-names/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-botcommands/dependency-injection/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-botcommands/dependency-injection/creating-services/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-botcommands/dependency-injection/retrieving-services/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-commands/advanced-options/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-commands/common-command-details/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-commands/application-commands/option-resolvers/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-commands/application-commands/using-autocomplete/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
     <url>
          <loc>https://bc.freya02.dev/3.0.0-alpha.20/using-commands/application-commands/writing-slash-commands/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2024-11-25</lastmod>
     </url>
 </urlset>
