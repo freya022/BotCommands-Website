@@ -35,8 +35,12 @@ jobs:
           distribution: temurin
           java-version: 21
           cache: maven
+      - name: Compile doc links server
+        run: mvn compile
       - name: Start doc links server
-        run: mvn compile exec:java -Dexec.mainClass=io.github.freya022.link.server.LinkServerKt &
+        run: mvn exec:java -Dexec.mainClass=io.github.freya022.link.server.LinkServerKt &
+      # Do note that the command above is async,
+      # thus, the wiki generation needs to run so after the server has started up
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
