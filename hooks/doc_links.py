@@ -22,7 +22,7 @@ def get_link_representation(identifier: str) -> dict | None:
     return r.json()
 
 
-def fully_replace_identifier(match: re.Match[str]) -> str | None:
+def replace_identifier_with_recommended(match: re.Match[str]) -> str | None:
     identifier = match.group(1)
     link_representation = get_link_representation(identifier)
     if link_representation is None:
@@ -32,13 +32,26 @@ def fully_replace_identifier(match: re.Match[str]) -> str | None:
     return f'[`{link_representation["label"]}`]({link_representation["url"]})'
 
 
+def replace_identifier_keep_label(match: re.Match[str]) -> str | None:
+    label = match.group(1)
+    identifier = match.group(2)
+    link_representation = get_link_representation(identifier)
+    if link_representation is None:
+        errors.append(identifier)
+        return None
+
+    return f'[{label}]({link_representation["url"]})'
+
+
 def on_pre_build(**kwargs):
     global errors
     errors = []
 
 @plugins.event_priority(100)
 def on_page_markdown(markdown: str, **kwargs) -> str:
-    return re.sub(r'\[\[([\w#(), .]+)]]', fully_replace_identifier, markdown)
+    markdown = re.sub(r'\[(.*?)]\[\[([\w#(), .]+)]]', replace_identifier_keep_label, markdown)
+    markdown = re.sub(r'\[\[([\w#(), .]+)]]', replace_identifier_with_recommended, markdown)
+    return markdown
 
 
 def on_post_build(**kwargs):
