@@ -44,6 +44,8 @@ object ClassMemberResolver {
         val baseLink = kmClass.getBaseLink(kotlinClass)
         val functionCandidates = kmClass.functions
             .filter { function -> function.name == memberName }
+            // Good news! This takes the *first* one, just like how overload resolution works in Dokka!
+            .distinctBy { function -> function.name }
             .map { function -> LinkRepresentation(memberLabel, "$baseLink/${function.name.toKDocCase()}.html") }
 
         val propertyCandidates = kmClass.properties
