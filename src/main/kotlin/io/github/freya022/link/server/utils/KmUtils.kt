@@ -1,4 +1,4 @@
-package io.github.freya022.link.server
+package io.github.freya022.link.server.utils
 
 import io.github.classgraph.ClassInfo
 import io.github.freya022.botcommands.api.core.utils.simpleNestedName

@@ -4,6 +4,9 @@ import ch.qos.logback.classic.ClassicConstants
 import io.github.classgraph.ClassGraph
 import io.github.classgraph.ClassInfo
 import io.github.freya022.botcommands.api.core.utils.simpleNestedName
+import io.github.freya022.link.server.utils.getBaseLink
+import io.github.freya022.link.server.utils.toKDocCase
+import io.github.freya022.link.server.utils.toSimpleString
 import io.github.freya022.wiki.config.Environment
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.http.*
