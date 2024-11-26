@@ -1,5 +1,6 @@
 import logging
 import re
+
 import requests
 from mkdocs import plugins
 
@@ -8,6 +9,7 @@ class IdentifierNotFoundException(Exception):
     def __init__(self, message: str):
         super().__init__(message)
 
+
 log = logging.getLogger(f"mkdocs.plugins.{__name__}")
 
 errors: list = []
@@ -15,7 +17,8 @@ session = requests.Session()
 
 
 def get_link_representation(identifier: str) -> dict | None:
-    r = session.get('http://localhost:16069/link', params={'identifier': identifier}, headers={'Accept': 'application/json'})
+    r = session.get('http://localhost:16069/link', params={'identifier': identifier},
+                    headers={'Accept': 'application/json'})
     if r.status_code != requests.codes.ok:
         log.debug(f"Received status code {r.status_code} for identifier {identifier}")
         return None
@@ -46,6 +49,7 @@ def replace_identifier_keep_label(match: re.Match[str]) -> str | None:
 def on_pre_build(**kwargs):
     global errors
     errors = []
+
 
 @plugins.event_priority(100)
 def on_page_markdown(markdown: str, **kwargs) -> str:
