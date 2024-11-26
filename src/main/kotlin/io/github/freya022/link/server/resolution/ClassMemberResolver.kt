@@ -5,9 +5,12 @@ import io.github.freya022.botcommands.api.core.utils.simpleNestedName
 import io.github.freya022.link.server.LinkException
 import io.github.freya022.link.server.LinkRepresentation
 import io.github.freya022.link.server.utils.*
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.metadata.jvm.KotlinClassMetadata
 
 object ClassMemberResolver {
+
+    private val logger = KotlinLogging.logger { }
 
     fun singleMember(identifier: String): LinkRepresentation {
         val (className, memberName) = identifier.split("#")
@@ -15,7 +18,14 @@ object ClassMemberResolver {
         if (classes.isEmpty()) {
             throw LinkException("'$className' was not found")
         } else {
-            val candidates = classes.mapNotNull { classInfo -> getMemberOrNull(classInfo, memberName) }
+            val candidates = classes.flatMap { classInfo ->
+                try {
+                    getMemberCandidates(classInfo, memberName)
+                } catch (e: LinkException) {
+                    logger.trace(e) { "Failed to get member candidates of ${classInfo.simpleNestedName}" }
+                    emptyList()
+                }
+            }
             if (candidates.isEmpty()) {
                 throw LinkException("'$memberName' is neither a function, property or enum value in '$className'")
             } else if (candidates.size > 1) {
@@ -26,7 +36,7 @@ object ClassMemberResolver {
         }
     }
 
-    private fun getMemberOrNull(classInfo: ClassInfo, memberName: String): LinkRepresentation? {
+    private fun getMemberCandidates(classInfo: ClassInfo, memberName: String): List<LinkRepresentation> {
         val className = classInfo.name
         val memberLabel = "${classInfo.simpleNestedName}.$memberName"
 
@@ -35,21 +45,18 @@ object ClassMemberResolver {
 
         val kmClass = (metadata as? KotlinClassMetadata.Class)?.kmClass
             ?: throw LinkException("'$className' is not a class")
-        val func = kmClass.functions.firstOrNull { function -> function.name == memberName }
-        if (func != null)
-            return LinkRepresentation(memberLabel, "${kmClass.getBaseLink(classInfo)}/${func.name.toKDocCase()}.html")
+        val functionCandidates = kmClass.functions
+            .filter { function -> function.name == memberName }
+            .map { function -> LinkRepresentation(memberLabel, "${kmClass.getBaseLink(classInfo)}/${function.name.toKDocCase()}.html") }
 
-        val prop = kmClass.properties.firstOrNull { property -> property.name == memberName }
-        if (prop != null)
-            return LinkRepresentation(memberLabel, "${kmClass.getBaseLink(classInfo)}/${prop.name.toKDocCase()}.html")
+        val propertyCandidates = kmClass.properties
+            .filter { property -> property.name == memberName }
+            .map { property -> LinkRepresentation(memberLabel, "${kmClass.getBaseLink(classInfo)}/${property.name.toKDocCase()}.html") }
 
-        val enumEntry = kmClass.enumEntries.firstOrNull { enumEntry -> enumEntry == memberName }
-        if (enumEntry != null)
-            return LinkRepresentation(
-                memberLabel,
-                "${kmClass.getBaseLink(classInfo)}/${enumEntry.toKDocCase()}/index.html"
-            )
+        val enumEntryCandidates = kmClass.enumEntries
+            .filter { enumEntry -> enumEntry == memberName }
+            .map { enumEntry -> LinkRepresentation(memberLabel, "${kmClass.getBaseLink(classInfo)}/${enumEntry.toKDocCase()}/index.html") }
 
-        return null
+        return functionCandidates + propertyCandidates + enumEntryCandidates
     }
 }

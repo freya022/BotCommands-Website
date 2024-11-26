@@ -4,12 +4,22 @@ import io.github.classgraph.ClassInfo
 import io.github.freya022.link.server.LinkException
 import io.github.freya022.link.server.LinkRepresentation
 import io.github.freya022.link.server.utils.*
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.metadata.jvm.KotlinClassMetadata
 
 object TopLevelResolver {
 
+    private val logger = KotlinLogging.logger { }
+
     fun singleTopLevelFunction(identifier: String): LinkRepresentation {
-        val candidates = apiClasses.mapNotNull { clazz -> getTopLevelFunctionOrNull(clazz, identifier) }
+        val candidates = apiClasses.flatMap { clazz ->
+            try {
+                getTopLevelCandidates(clazz, identifier)
+            } catch (e: LinkException) {
+                logger.trace(e) { "Failed to get member candidates of ${clazz.simpleNestedName}" }
+                emptyList()
+            }
+        }
         if (candidates.isEmpty()) {
             throw LinkException("'$identifier' is neither a top-level function or property")
         } else if (candidates.size > 1) {
@@ -19,31 +29,23 @@ object TopLevelResolver {
         }
     }
 
-    private fun getTopLevelFunctionOrNull(clazz: ClassInfo, identifier: String): LinkRepresentation? {
+    private fun getTopLevelCandidates(clazz: ClassInfo, identifier: String): List<LinkRepresentation> {
         if (!clazz.annotations.directOnly().containsName(Metadata::class.java.name))
-            return null
+            return emptyList()
 
         val metadata = readMetadata(clazz)
-            ?: return null
+            ?: return emptyList()
         val kmPackage = (metadata as? KotlinClassMetadata.FileFacade)?.kmPackage
-            ?: return null
+            ?: return emptyList()
 
-        val func = kmPackage.functions.firstOrNull { function -> function.name == identifier }
-        if (func != null) {
-            return LinkRepresentation(
-                func.toSimpleString(),
-                "${kmPackage.getBaseLink(clazz)}/${func.name.toKDocCase()}.html"
-            )
-        }
+        val functionCandidates = kmPackage.functions
+            .filter { function -> function.name == identifier }
+            .map { function -> LinkRepresentation(function.toSimpleString(), "${kmPackage.getBaseLink(clazz)}/${function.name.toKDocCase()}.html") }
 
-        val prop = kmPackage.properties.firstOrNull { property -> property.name == identifier }
-        if (prop != null) {
-            return LinkRepresentation(
-                identifier,
-                "${kmPackage.getBaseLink(clazz)}/${prop.name.toKDocCase()}.html"
-            )
-        }
+        val propertyCandidates = kmPackage.properties
+            .filter { property -> property.name == identifier }
+            .map { property -> LinkRepresentation(identifier, "${kmPackage.getBaseLink(clazz)}/${property.name.toKDocCase()}.html") }
 
-        return null
+        return functionCandidates + propertyCandidates
     }
 }
