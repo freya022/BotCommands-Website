@@ -35,12 +35,6 @@ jobs:
           distribution: temurin
           java-version: 21
           cache: maven
-      - name: Compile doc links server
-        run: mvn compile
-      - name: Start doc links server
-        run: mvn exec:java -Dexec.mainClass=io.github.freya022.link.server.LinkServerKt &
-      # Do note that the command above is async,
-      # thus, the wiki generation needs to run so after the server has started up
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
@@ -86,7 +80,7 @@ jobs:
 
             throw new Error("Could not find used BC version")
       - name: Generate wiki
-        run: mike deploy ${{ fromJSON(steps.get-bc-version.outputs.result).bcVersion }} ${{ fromJSON(steps.get-bc-version.outputs.result).alias }} --update-aliases
+        run: mvn compile exec:java -Dexec.mainClass=io.github.freya022.mkdocs.MkDocsLauncherKt -Dexec.args='mike deploy ${{ fromJSON(steps.get-bc-version.outputs.result).bcVersion }} ${{ fromJSON(steps.get-bc-version.outputs.result).alias }} --update-aliases'
       - name: Update latest alias
         if: ${{ fromJSON(steps.get-bc-version.outputs.result).alias }}
         run: mike set-default ${{ fromJSON(steps.get-bc-version.outputs.result).alias }}
