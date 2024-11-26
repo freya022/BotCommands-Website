@@ -11,7 +11,7 @@ object TopLevelResolver {
 
     private val logger = KotlinLogging.logger { }
 
-    fun singleTopLevelFunction(identifier: String): LinkRepresentation {
+    fun singleTopLevel(identifier: String): LinkRepresentation {
         val candidates = apiClasses.flatMap { clazz ->
             try {
                 getTopLevelCandidates(clazz, identifier)

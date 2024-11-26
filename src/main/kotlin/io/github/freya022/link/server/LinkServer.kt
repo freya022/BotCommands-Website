@@ -70,7 +70,7 @@ private fun Routing.link() {
 private fun getIdentifierLinkRepresentation(identifier: String): LinkRepresentation {
     // Extensions are handled implicitly because they are treated as top-level functions in KDocs
     return if (identifier[0].isLowerCase()) { // Top-level
-        TopLevelResolver.singleTopLevelFunction(identifier)
+        TopLevelResolver.singleTopLevel(identifier)
     } else if ('#' in identifier) { // Member (property or function)
         ClassMemberResolver.singleMember(identifier)
     } else { // Class
