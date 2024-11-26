@@ -87,53 +87,25 @@ private fun Routing.link() {
     }
 }
 
-@Suppress("t")
 private fun getIdentifierLinkRepresentation(identifier: String): LinkRepresentation {
     // Extensions are handled implicitly because they are treated as top-level functions in KDocs
-    if (identifier[0].isLowerCase()) { // Top-level
-        val candidates = classes.mapNotNull { clazz -> getTopLevelFunctionOrNull(clazz, identifier) }
-        if (candidates.isEmpty()) {
-            notFound("'$identifier' is neither a top-level function or property")
-        } else if (candidates.size > 1) {
-            notFound("Found multiple candidates for '$identifier':\n${candidates.joinToString("\n") { it.url } }")
-        } else {
-            return candidates.first()
-        }
+    return if (identifier[0].isLowerCase()) { // Top-level
+        singleTopLevelFunction(identifier)
     } else if ('#' in identifier) { // Member (property or function)
-        val (className, memberName) = identifier.split("#")
-        val classes = findClasses(className)
-        if (classes.isEmpty()) {
-            notFound("'$className' was not found")
-        } else {
-            val candidates = classes.mapNotNull { classInfo -> getMemberOrNull(classInfo, memberName) }
-            if (candidates.isEmpty()) {
-                notFound("'$memberName' is neither a function, property or enum value in '$className'")
-            } else if (candidates.size > 1) {
-                notFound("Found multiple candidates for '$identifier':\n${candidates.joinToString("\n") { it.url } }")
-            } else {
-                return candidates.first()
-            }
-        }
+        singleMember(identifier)
     } else { // Class
-        val className = identifier
-        val classes = findClasses(className)
-        if (classes.isEmpty()) {
-            notFound("'$className' was not found")
-        } else if (classes.size > 1) {
-            notFound("Found multiple candidates for '$className': ${classes.joinToString { it.name } }")
-        } else {
-            val classInfo = classes.first()
-            val metadata = readMetadata(classInfo)
-                ?: notFound("'$className' is not a Kotlin class")
+        singleClass(identifier)
+    }
+}
 
-            val kmClass = (metadata as? KotlinClassMetadata.Class)?.kmClass
-                ?: notFound("'$className' is not a class")
-
-            return when (kmClass.kind) {
-                ClassKind.ANNOTATION_CLASS -> LinkRepresentation("#!java @$identifier", "${kmClass.getBaseLink(classInfo)}/index.html")
-                else -> LinkRepresentation(identifier, "${kmClass.getBaseLink(classInfo)}/index.html")
-            }
-        }
+private fun singleTopLevelFunction(identifier: String): LinkRepresentation {
+    val candidates = classes.mapNotNull { clazz -> getTopLevelFunctionOrNull(clazz, identifier) }
+    if (candidates.isEmpty()) {
+        notFound("'$identifier' is neither a top-level function or property")
+    } else if (candidates.size > 1) {
+        notFound("Found multiple candidates for '$identifier':\n${candidates.joinToString("\n") { it.url } }")
+    } else {
+        return candidates.first()
     }
 }
 
@@ -165,6 +137,23 @@ private fun getTopLevelFunctionOrNull(clazz: ClassInfo, identifier: String): Lin
     return null
 }
 
+private fun singleMember(identifier: String): LinkRepresentation {
+    val (className, memberName) = identifier.split("#")
+    val classes = findClasses(className)
+    if (classes.isEmpty()) {
+        notFound("'$className' was not found")
+    } else {
+        val candidates = classes.mapNotNull { classInfo -> getMemberOrNull(classInfo, memberName) }
+        if (candidates.isEmpty()) {
+            notFound("'$memberName' is neither a function, property or enum value in '$className'")
+        } else if (candidates.size > 1) {
+            notFound("Found multiple candidates for '$identifier':\n${candidates.joinToString("\n") { it.url } }")
+        } else {
+            return candidates.first()
+        }
+    }
+}
+
 private fun getMemberOrNull(classInfo: ClassInfo, memberName: String): LinkRepresentation? {
     val className = classInfo.name
     val memberLabel = "${classInfo.simpleNestedName}.$memberName"
@@ -190,6 +179,27 @@ private fun getMemberOrNull(classInfo: ClassInfo, memberName: String): LinkRepre
         )
 
     return null
+}
+
+private fun singleClass(className: String): LinkRepresentation {
+    val classes = findClasses(className)
+    if (classes.isEmpty()) {
+        notFound("'$className' was not found")
+    } else if (classes.size > 1) {
+        notFound("Found multiple candidates for '$className': ${classes.joinToString { it.name } }")
+    } else {
+        val classInfo = classes.first()
+        val metadata = readMetadata(classInfo)
+            ?: notFound("'$className' is not a Kotlin class")
+
+        val kmClass = (metadata as? KotlinClassMetadata.Class)?.kmClass
+            ?: notFound("'$className' is not a class")
+
+        return when (kmClass.kind) {
+            ClassKind.ANNOTATION_CLASS -> LinkRepresentation("#!java @$className", "${kmClass.getBaseLink(classInfo)}/index.html")
+            else -> LinkRepresentation(className, "${kmClass.getBaseLink(classInfo)}/index.html")
+        }
+    }
 }
 
 private fun notFound(reason: String): Nothing = throw LinkException(reason)
