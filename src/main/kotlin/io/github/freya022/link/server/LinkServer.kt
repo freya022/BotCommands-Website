@@ -18,7 +18,6 @@ import io.ktor.server.resources.*
 import io.ktor.server.resources.Resources
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.serialization.Serializable
 import org.slf4j.event.Level
 import kotlin.io.path.absolutePathString
 
@@ -26,15 +25,6 @@ private val logger by lazy { KotlinLogging.logger { } }
 
 @Resource("/link")
 class Link(val identifier: String)
-
-@Serializable
-data class LinkRepresentation(
-    val label: String,
-    val url: String,
-//    val tooltip: String,
-)
-
-class LinkException(message: String) : IllegalArgumentException(message)
 
 fun main() {
     System.setProperty(ClassicConstants.CONFIG_FILE_PROPERTY, Environment.logbackConfigPath.absolutePathString())
