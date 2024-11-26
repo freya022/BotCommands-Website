@@ -49,6 +49,10 @@ fun main() {
     System.setProperty(ClassicConstants.CONFIG_FILE_PROPERTY, Environment.logbackConfigPath.absolutePathString())
     logger.info { "Loading logback configuration at ${Environment.logbackConfigPath.absolutePathString()}" }
 
+    embeddedLinkServer().start(wait = true)
+}
+
+fun embeddedLinkServer() =
     embeddedServer(Netty, port = 16069) {
         install(ContentNegotiation) {
             json()
@@ -69,8 +73,7 @@ fun main() {
                 }
             }
         }
-    }.start(wait = true)
-}
+    }
 
 private fun getIdentifierLinkRepresentation(identifier: String): LinkRepresentation? {
     fun getClassMetadata(className: String): KotlinClassMetadata? {
