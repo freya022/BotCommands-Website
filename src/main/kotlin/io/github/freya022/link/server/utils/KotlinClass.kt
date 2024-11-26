@@ -11,5 +11,5 @@ class KotlinClass(
 
     val packageName: String get() = classInfo.packageName
     val fullName: String get() = classInfo.name
-    val simpleNestedName: String get() = classInfo.simpleNestedName
+    val simpleNestedName: String get() = classInfo.simpleNestedName.replace('$', '.')
 }

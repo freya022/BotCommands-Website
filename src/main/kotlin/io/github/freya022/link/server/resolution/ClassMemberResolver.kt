@@ -34,12 +34,11 @@ object ClassMemberResolver {
         }
     }
 
-    private fun getMemberCandidates(kotlinClass: KotlinClass, memberName: String): List<LinkRepresentation> {
-        val className = kotlinClass.simpleNestedName
-        val memberLabel = "$className.$memberName"
+    private fun getMemberCandidates(kotlinClass: KotlinClass, memberName: String, displayClassName: String = kotlinClass.simpleNestedName): List<LinkRepresentation> {
+        val memberLabel = "$displayClassName.$memberName"
 
         val kmClass = (kotlinClass.metadata as? KotlinClassMetadata.Class)?.kmClass
-            ?: throw LinkException("'$className' is not a class")
+            ?: throw LinkException("'${kotlinClass.simpleNestedName}' is not a class")
 
         val baseLink = kmClass.getBaseLink(kotlinClass)
         val functionCandidates = kmClass.functions
@@ -56,6 +55,17 @@ object ClassMemberResolver {
             .filter { enumEntry -> enumEntry == memberName }
             .map { enumEntry -> LinkRepresentation(memberLabel, "$baseLink/${enumEntry.toKDocCase()}/index.html") }
 
-        return functionCandidates + propertyCandidates + enumEntryCandidates
+        val companionCandidates = kmClass.companionObject?.let { companionObjectName ->
+            val companionNestedName = "${kotlinClass.simpleNestedName}.$companionObjectName"
+            val companionKotlinClass = apiClasses.first { apiClass -> apiClass.simpleNestedName == companionNestedName }
+            getMemberCandidates(
+                companionKotlinClass,
+                // Don't show the .Companion
+                memberName,
+                displayClassName,
+            )
+        } ?: emptyList()
+
+        return functionCandidates + propertyCandidates + enumEntryCandidates + companionCandidates
     }
 }
