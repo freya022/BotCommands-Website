@@ -32,6 +32,7 @@ theme:
 
 hooks:
   - docs/doc_links.py
+  - docs/content_tab_icons.py
 
 plugins:
   - search
