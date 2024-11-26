@@ -64,24 +64,28 @@ fun embeddedLinkServer() =
         }
 
         routing {
-            get<Link> {
-                val identifier = it.identifier
-                runCatching {
-                    getIdentifierLinkRepresentation(identifier)
-                }.onSuccess { link ->
-                    call.respond(link)
-                }.onFailure { exception ->
-                    if (exception is LinkException) {
-                        logger.info(exception) { "Could not get link for identifier '$identifier'" }
-                        call.respondText("Link not found", status = HttpStatusCode.NotFound)
-                    } else {
-                        logger.error(exception) { "Could not get link for identifier '$identifier'" }
-                        call.respondText("Exception while getting link", status = HttpStatusCode.InternalServerError)
-                    }
-                }
+            link()
+        }
+    }
+
+private fun Routing.link() {
+    get<Link> {
+        val identifier = it.identifier
+        runCatching {
+            getIdentifierLinkRepresentation(identifier)
+        }.onSuccess { link ->
+            call.respond(link)
+        }.onFailure { exception ->
+            if (exception is LinkException) {
+                logger.info(exception) { "Could not get link for identifier '$identifier'" }
+                call.respondText("Link not found", status = HttpStatusCode.NotFound)
+            } else {
+                logger.error(exception) { "Could not get link for identifier '$identifier'" }
+                call.respondText("Exception while getting link", status = HttpStatusCode.InternalServerError)
             }
         }
     }
+}
 
 @Suppress("t")
 private fun getIdentifierLinkRepresentation(identifier: String): LinkRepresentation {
