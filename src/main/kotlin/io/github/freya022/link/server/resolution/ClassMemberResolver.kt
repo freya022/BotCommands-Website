@@ -1,7 +1,5 @@
 package io.github.freya022.link.server.resolution
 
-import io.github.classgraph.ClassInfo
-import io.github.freya022.botcommands.api.core.utils.simpleNestedName
 import io.github.freya022.link.server.LinkException
 import io.github.freya022.link.server.LinkRepresentation
 import io.github.freya022.link.server.utils.*
@@ -18,11 +16,11 @@ object ClassMemberResolver {
         if (classes.isEmpty()) {
             throw LinkException("'$className' was not found")
         } else {
-            val candidates = classes.flatMap { classInfo ->
+            val candidates = classes.flatMap { kotlinClass ->
                 try {
-                    getMemberCandidates(classInfo, memberName)
+                    getMemberCandidates(kotlinClass, memberName)
                 } catch (e: LinkException) {
-                    logger.trace(e) { "Failed to get member candidates of ${classInfo.simpleNestedName}" }
+                    logger.trace(e) { "Failed to get member candidates of ${kotlinClass.simpleNestedName}" }
                     emptyList()
                 }
             }
@@ -36,26 +34,25 @@ object ClassMemberResolver {
         }
     }
 
-    private fun getMemberCandidates(classInfo: ClassInfo, memberName: String): List<LinkRepresentation> {
-        val className = classInfo.name
-        val memberLabel = "${classInfo.simpleNestedName}.$memberName"
+    private fun getMemberCandidates(kotlinClass: KotlinClass, memberName: String): List<LinkRepresentation> {
+        val className = kotlinClass.simpleNestedName
+        val memberLabel = "$className.$memberName"
 
-        val metadata = readMetadata(classInfo)
-            ?: throw LinkException("'$className' is not a Kotlin class")
-
-        val kmClass = (metadata as? KotlinClassMetadata.Class)?.kmClass
+        val kmClass = (kotlinClass.metadata as? KotlinClassMetadata.Class)?.kmClass
             ?: throw LinkException("'$className' is not a class")
+
+        val baseLink = kmClass.getBaseLink(kotlinClass)
         val functionCandidates = kmClass.functions
             .filter { function -> function.name == memberName }
-            .map { function -> LinkRepresentation(memberLabel, "${kmClass.getBaseLink(classInfo)}/${function.name.toKDocCase()}.html") }
+            .map { function -> LinkRepresentation(memberLabel, "$baseLink/${function.name.toKDocCase()}.html") }
 
         val propertyCandidates = kmClass.properties
             .filter { property -> property.name == memberName }
-            .map { property -> LinkRepresentation(memberLabel, "${kmClass.getBaseLink(classInfo)}/${property.name.toKDocCase()}.html") }
+            .map { property -> LinkRepresentation(memberLabel, "$baseLink/${property.name.toKDocCase()}.html") }
 
         val enumEntryCandidates = kmClass.enumEntries
             .filter { enumEntry -> enumEntry == memberName }
-            .map { enumEntry -> LinkRepresentation(memberLabel, "${kmClass.getBaseLink(classInfo)}/${enumEntry.toKDocCase()}/index.html") }
+            .map { enumEntry -> LinkRepresentation(memberLabel, "$baseLink/${enumEntry.toKDocCase()}/index.html") }
 
         return functionCandidates + propertyCandidates + enumEntryCandidates
     }

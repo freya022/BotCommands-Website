@@ -1,6 +1,5 @@
 package io.github.freya022.link.server.resolution
 
-import io.github.classgraph.ClassInfo
 import io.github.freya022.link.server.LinkException
 import io.github.freya022.link.server.LinkRepresentation
 import io.github.freya022.link.server.utils.*
@@ -12,11 +11,11 @@ object TopLevelResolver {
     private val logger = KotlinLogging.logger { }
 
     fun singleTopLevel(identifier: String): LinkRepresentation {
-        val candidates = apiClasses.flatMap { clazz ->
+        val candidates = apiClasses.flatMap { kotlinClass ->
             try {
-                getTopLevelCandidates(clazz, identifier)
+                getTopLevelCandidates(kotlinClass, identifier)
             } catch (e: LinkException) {
-                logger.trace(e) { "Failed to get member candidates of ${clazz.simpleNestedName}" }
+                logger.trace(e) { "Failed to get member candidates of ${kotlinClass.simpleNestedName}" }
                 emptyList()
             }
         }
@@ -29,22 +28,19 @@ object TopLevelResolver {
         }
     }
 
-    private fun getTopLevelCandidates(clazz: ClassInfo, identifier: String): List<LinkRepresentation> {
-        if (!clazz.annotations.directOnly().containsName(Metadata::class.java.name))
-            return emptyList()
-
-        val metadata = readMetadata(clazz)
-            ?: return emptyList()
+    private fun getTopLevelCandidates(kotlinClass: KotlinClass, identifier: String): List<LinkRepresentation> {
+        val metadata = kotlinClass.metadata
         val kmPackage = (metadata as? KotlinClassMetadata.FileFacade)?.kmPackage
             ?: return emptyList()
 
+        val baseLink = kmPackage.getBaseLink(kotlinClass)
         val functionCandidates = kmPackage.functions
             .filter { function -> function.name == identifier }
-            .map { function -> LinkRepresentation(function.toSimpleString(), "${kmPackage.getBaseLink(clazz)}/${function.name.toKDocCase()}.html") }
+            .map { function -> LinkRepresentation(function.toSimpleString(), "$baseLink/${function.name.toKDocCase()}.html") }
 
         val propertyCandidates = kmPackage.properties
             .filter { property -> property.name == identifier }
-            .map { property -> LinkRepresentation(identifier, "${kmPackage.getBaseLink(clazz)}/${property.name.toKDocCase()}.html") }
+            .map { property -> LinkRepresentation(identifier, "$baseLink/${property.name.toKDocCase()}.html") }
 
         return functionCandidates + propertyCandidates
     }

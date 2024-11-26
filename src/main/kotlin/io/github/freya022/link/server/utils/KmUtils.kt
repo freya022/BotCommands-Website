@@ -1,7 +1,5 @@
 package io.github.freya022.link.server.utils
 
-import io.github.classgraph.ClassInfo
-import io.github.freya022.botcommands.api.core.utils.simpleNestedName
 import kotlin.metadata.*
 import kotlin.metadata.jvm.moduleName
 
@@ -44,15 +42,15 @@ fun KmTypeProjection.toSimpleString(func: KmFunction): String = buildString {
 val KmClassifier.Class.simpleNestedName: String
     get() = name.dropWhile { !it.isUpperCase() }.replace('/', '.')
 
-fun KmPackage.getBaseLink(classInfo: ClassInfo): String {
+fun KmPackage.getBaseLink(kotlinClass: KotlinClass): String {
     val module = moduleName!!.toKDocCase()
-    val packageName = classInfo.packageName.replace('/', '.')
+    val packageName = kotlinClass.packageName
     return "https://docs.bc.freya02.dev/$module/$packageName"
 }
 
-fun KmClass.getBaseLink(classInfo: ClassInfo): String {
+fun KmClass.getBaseLink(kotlinClass: KotlinClass): String {
     val module = moduleName!!.toKDocCase()
-    val packageName = classInfo.packageName.replace('/', '.')
-    val classNames = classInfo.simpleNestedName.split(".").joinToString("/") { it.toKDocCase() }
+    val packageName = kotlinClass.packageName
+    val classNames = kotlinClass.simpleNestedName.split(".").joinToString("/") { it.toKDocCase() }
     return "https://docs.bc.freya02.dev/$module/$packageName/$classNames"
 }
