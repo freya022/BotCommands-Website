@@ -44,6 +44,8 @@ data class LinkRepresentation(
 //    val tooltip: String,
 )
 
+class LinkException(message: String) : IllegalArgumentException(message)
+
 fun main() {
     System.setProperty(ClassicConstants.CONFIG_FILE_PROPERTY, Environment.logbackConfigPath.absolutePathString())
     logger.info { "Loading logback configuration at ${Environment.logbackConfigPath.absolutePathString()}" }
@@ -64,21 +66,27 @@ fun embeddedLinkServer() =
         routing {
             get<Link> {
                 val identifier = it.identifier
-                val link = getIdentifierLinkRepresentation(identifier)
-                if (link != null) {
+                runCatching {
+                    getIdentifierLinkRepresentation(identifier)
+                }.onSuccess { link ->
                     call.respond(link)
-                } else {
-                    call.respondText("Link not found", status = HttpStatusCode.NotFound)
+                }.onFailure { exception ->
+                    if (exception is LinkException) {
+                        logger.info(exception) { "Could not get link for identifier '$identifier'" }
+                        call.respondText("Link not found", status = HttpStatusCode.NotFound)
+                    } else {
+                        logger.error(exception) { "Could not get link for identifier '$identifier'" }
+                        call.respondText("Exception while getting link", status = HttpStatusCode.InternalServerError)
+                    }
                 }
             }
         }
     }
 
 @Suppress("t")
-private fun getIdentifierLinkRepresentation(identifier: String): LinkRepresentation? {
-    fun notFound(reason: String): LinkRepresentation? {
-        logger.info { "Could not find '$identifier': $reason" }
-        return null
+private fun getIdentifierLinkRepresentation(identifier: String): LinkRepresentation {
+    fun notFound(reason: String): Nothing {
+        throw LinkException(reason)
     }
 
     // Extensions are handled implicitly because they are treated as top-level functions in KDocs
@@ -104,16 +112,16 @@ private fun getIdentifierLinkRepresentation(identifier: String): LinkRepresentat
                 return LinkRepresentation(identifier, "${kmPackage.getBaseLink(clazz)}/${prop.name.toKDocCase()}.html")
         }
 
-        return notFound("'$identifier' is neither a top-level function or property")
+        notFound("'$identifier' is neither a top-level function or property")
     } else if ('#' in identifier) { // Member (property or function)
         val (className, memberName) = identifier.split("#")
         val classInfo = findClass(className)
-            ?: return notFound("'$className' was not found")
+            ?: notFound("'$className' was not found")
         val metadata = readMetadata(classInfo)
-            ?: return notFound("'$className' is not a Kotlin class")
+            ?: notFound("'$className' is not a Kotlin class")
 
         val kmClass = (metadata as? KotlinClassMetadata.Class)?.kmClass
-            ?: return notFound("'$className' is not a class")
+            ?: notFound("'$className' is not a class")
         val func = kmClass.functions.firstOrNull { function -> function.name == memberName }
         if (func != null)
             return LinkRepresentation(identifier, "${kmClass.getBaseLink(classInfo)}/${func.name.toKDocCase()}.html")
@@ -126,16 +134,16 @@ private fun getIdentifierLinkRepresentation(identifier: String): LinkRepresentat
         if (enumEntry != null)
             return LinkRepresentation(identifier, "${kmClass.getBaseLink(classInfo)}/${enumEntry.toKDocCase()}/index.html")
 
-        return notFound("'$memberName' is neither a function, property or enum value in '$className'")
+        notFound("'$memberName' is neither a function, property or enum value in '$className'")
     } else {
         val className = identifier
         val classInfo = findClass(className)
-            ?: return notFound("'$className' was not found")
+            ?: notFound("'$className' was not found")
         val metadata = readMetadata(classInfo)
-            ?: return notFound("'$className' is not a Kotlin class")
+            ?: notFound("'$className' is not a Kotlin class")
 
         val kmClass = (metadata as? KotlinClassMetadata.Class)?.kmClass
-            ?: return notFound("'$className' is not a class")
+            ?: notFound("'$className' is not a class")
 
         return when (kmClass.kind) {
             ClassKind.ANNOTATION_CLASS -> LinkRepresentation("#!java @$identifier", "${kmClass.getBaseLink(classInfo)}/index.html")
