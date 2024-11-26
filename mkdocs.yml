@@ -101,6 +101,7 @@ nav:
   - Setup:
       - Getting started: setup/getting-started.md
       - Logging: setup/logging.md
+  - Recipes: recipes.md
   - Using BotCommands:
       - Dependency injection:
         - using-botcommands/dependency-injection/index.md
