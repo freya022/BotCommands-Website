@@ -31,8 +31,8 @@ theme:
         name: Switch to light mode
 
 hooks:
-  - docs/doc_links.py
-  - docs/content_tab_icons.py
+  - hooks/doc_links.py
+  - hooks/content_tab_icons.py
 
 plugins:
   - search
