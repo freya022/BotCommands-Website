@@ -18,6 +18,7 @@ import io.ktor.server.resources.Resources
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
+import org.slf4j.event.Level
 import kotlin.io.path.absolutePathString
 import kotlin.metadata.ClassKind
 import kotlin.metadata.KmClass
@@ -53,7 +54,9 @@ fun main() {
             json()
         }
         install(Resources)
-        install(CallLogging)
+        install(CallLogging) {
+            level = Level.DEBUG
+        }
 
         routing {
             get<Link> {
