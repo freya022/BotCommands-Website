@@ -2,6 +2,7 @@ package io.github.freya022.link.server
 
 import ch.qos.logback.classic.ClassicConstants
 import io.github.classgraph.ClassGraph
+import io.github.classgraph.ClassInfo
 import io.github.freya022.botcommands.api.core.utils.simpleNestedName
 import io.github.freya022.wiki.config.Environment
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -21,9 +22,7 @@ import kotlinx.serialization.Serializable
 import org.slf4j.event.Level
 import kotlin.io.path.absolutePathString
 import kotlin.metadata.ClassKind
-import kotlin.metadata.KmClass
 import kotlin.metadata.jvm.KotlinClassMetadata
-import kotlin.metadata.jvm.moduleName
 import kotlin.metadata.kind
 
 private val logger by lazy { KotlinLogging.logger { } }
@@ -75,66 +74,82 @@ fun embeddedLinkServer() =
         }
     }
 
+@Suppress("t")
 private fun getIdentifierLinkRepresentation(identifier: String): LinkRepresentation? {
-    fun getClassMetadata(className: String): KotlinClassMetadata? {
-        val classInfo = classes.firstOrNull { classInfo -> classInfo.simpleNestedName.replace('$', '.') == className }
-            ?: return null
-        val metadataAnnotation = classInfo.annotationInfo.directOnly()[Metadata::class.java.name].loadClassAndInstantiate() as Metadata
-        return KotlinClassMetadata.readStrict(metadataAnnotation)
-    }
-
     fun notFound(reason: String): LinkRepresentation? {
         logger.info { "Could not find '$identifier': $reason" }
         return null
     }
 
-    fun String.toKDocCase(): String {
-        return replace(Regex("[A-Z]")) { "-${it.value.lowercase()}" }
-    }
+    // Extensions are handled implicitly because they are treated as top-level functions in KDocs
+    if (identifier[0].isLowerCase()) { // Top-level
+        classes.forEach { clazz ->
+            if (!clazz.annotations.directOnly().containsName(Metadata::class.java.name))
+                return@forEach
 
-    fun KmClass.getBaseLink(): String {
-        val module = moduleName!!.toKDocCase()
-        val firstUppercaseIndex = name.indexOfFirst { ch -> ch.isUpperCase() }
-        val packageName = name.substring(0..<firstUppercaseIndex - 1).replace('/', '.')
-        val classNames = name.substring(firstUppercaseIndex).split(".").joinToString("/") { it.toKDocCase() }
-        return "https://docs.bc.freya02.dev/$module/$packageName/$classNames"
-    }
+            val metadata = readMetadata(clazz)
+            val kmPackage = (metadata as? KotlinClassMetadata.FileFacade)?.kmPackage
+                ?: return@forEach
 
-    if ('#' in identifier) {
+            val func = kmPackage.functions.firstOrNull { function -> function.name == identifier }
+            if (func != null) {
+                return LinkRepresentation(
+                    func.toSimpleString(),
+                    "${kmPackage.getBaseLink(clazz)}/${func.name.toKDocCase()}.html"
+                )
+            }
+
+            val prop = kmPackage.properties.firstOrNull { property -> property.name == identifier }
+            if (prop != null)
+                return LinkRepresentation(identifier, "${kmPackage.getBaseLink(clazz)}/${prop.name.toKDocCase()}.html")
+        }
+
+        return notFound("'$identifier' is neither a top-level function or property")
+    } else if ('#' in identifier) { // Member (property or function)
         val (className, memberName) = identifier.split("#")
-        val metadata = getClassMetadata(className)
+        val classInfo = findClass(className)
             ?: return notFound("'$className' was not found")
+        val metadata = readMetadata(classInfo)
+            ?: return notFound("'$className' is not a Kotlin class")
 
         val kmClass = (metadata as? KotlinClassMetadata.Class)?.kmClass
             ?: return notFound("'$className' is not a class")
         val func = kmClass.functions.firstOrNull { function -> function.name == memberName }
-        if (func != null) {
-            return LinkRepresentation(identifier, "${kmClass.getBaseLink()}/${func.name.toKDocCase()}.html")
-        }
+        if (func != null)
+            return LinkRepresentation(identifier, "${kmClass.getBaseLink(classInfo)}/${func.name.toKDocCase()}.html")
 
         val prop = kmClass.properties.firstOrNull { property -> property.name == memberName }
         if (prop != null)
-            return LinkRepresentation(identifier, "${kmClass.getBaseLink()}/${prop.name.toKDocCase()}.html")
+            return LinkRepresentation(identifier, "${kmClass.getBaseLink(classInfo)}/${prop.name.toKDocCase()}.html")
 
         val enumEntry = kmClass.enumEntries.firstOrNull { enumEntry -> enumEntry == memberName }
         if (enumEntry != null)
-            return LinkRepresentation(identifier, "${kmClass.getBaseLink()}/${enumEntry.toKDocCase()}/index.html")
+            return LinkRepresentation(identifier, "${kmClass.getBaseLink(classInfo)}/${enumEntry.toKDocCase()}/index.html")
 
         return notFound("'$memberName' is neither a function, property or enum value in '$className'")
     } else {
         val className = identifier
-        val metadata = getClassMetadata(className)
+        val classInfo = findClass(className)
             ?: return notFound("'$className' was not found")
+        val metadata = readMetadata(classInfo)
+            ?: return notFound("'$className' is not a Kotlin class")
 
         val kmClass = (metadata as? KotlinClassMetadata.Class)?.kmClass
             ?: return notFound("'$className' is not a class")
 
         return when (kmClass.kind) {
-            ClassKind.ANNOTATION_CLASS -> LinkRepresentation("#!java @$identifier", "${kmClass.getBaseLink()}/index.html")
-            else -> LinkRepresentation(identifier, "${kmClass.getBaseLink()}/index.html")
+            ClassKind.ANNOTATION_CLASS -> LinkRepresentation("#!java @$identifier", "${kmClass.getBaseLink(classInfo)}/index.html")
+            else -> LinkRepresentation(identifier, "${kmClass.getBaseLink(classInfo)}/index.html")
         }
     }
 }
 
-private val KmClass.packageName: String get() = name.takeWhile { !it.isUpperCase() }
-private val KmClass.simpleNestedName: String get() = name.dropWhile { !it.isUpperCase() }
+private fun findClass(className: String): ClassInfo? {
+    return classes.firstOrNull { classInfo -> classInfo.simpleNestedName.replace('$', '.') == className }
+}
+
+private fun readMetadata(classInfo: ClassInfo): KotlinClassMetadata? {
+    val metadataAnnotation = classInfo.annotationInfo.directOnly()[Metadata::class.java.name]?.loadClassAndInstantiate() as Metadata?
+        ?: return null
+    return KotlinClassMetadata.readStrict(metadataAnnotation)
+}

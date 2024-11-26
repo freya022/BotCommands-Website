@@ -69,6 +69,6 @@ def on_shutdown():
 
 if __name__ == '__main__':
     on_pre_build()
-    print(on_page_markdown(r'[[BService]]'))
+    print(on_page_markdown(r'[[ignore]]'))
     on_post_build()
     on_shutdown()
