@@ -20,12 +20,11 @@ import io.github.freya022.botcommands.api.components.builder.timeoutWith
 import io.github.freya022.botcommands.api.components.data.ComponentTimeoutData
 import io.github.freya022.botcommands.api.components.event.ButtonEvent
 import io.github.freya022.wiki.switches.wiki.WikiLanguage
-import kotlinx.coroutines.withTimeoutOrNull
+import kotlinx.coroutines.TimeoutCancellationException
 import net.dv8tion.jda.api.interactions.Interaction
 import net.dv8tion.jda.api.interactions.callbacks.IDeferrableCallback
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.minutes
-import kotlin.time.Duration.Companion.seconds
 
 // Exists only for @TopLevelSlashCommandData
 @Command
@@ -140,16 +139,16 @@ class SlashEphemeralAwaitingClicker(private val buttons: Buttons) : ApplicationC
         event.replyComponents(row(button)).await()
 
         var count = 0
-        // When the 15 minutes expire, the loop is stopped due to a TimeoutCancellationException
-        // and the code below runs
-        withTimeoutOrNull(15.seconds) {
+        // When the 15 minutes expire,
+        // the loop is stopped due to a TimeoutCancellationException (see 'await' on the button).
+        try {
             while (true) {
                 // Wait for the button to be clicked and edit it with a new label
                 // you can keep the same button id as we keep awaiting the same one
                 val buttonEvent = button.await()
                 buttonEvent.editButton(button.withLabel("${++count} cookies")).await()
             }
-        }
+        } catch (_: TimeoutCancellationException) { }
 
         // Try to disable components if the interaction is still usable
         if (!event.hook.isExpired) {
@@ -175,9 +174,8 @@ class SlashEphemeralAwaitingClicker(private val buttons: Buttons) : ApplicationC
                 // Only allow the caller to use the button
                 constraints += event.user
 
-                bindTo { t ->
-                    println("click")
-                }
+                // Invalidate the button after 15 minutes, cancelling all coroutines awaiting on the button
+                timeout(15.minutes)
             }
     }
 }
