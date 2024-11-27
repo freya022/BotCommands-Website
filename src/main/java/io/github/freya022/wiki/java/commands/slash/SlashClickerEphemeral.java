@@ -39,26 +39,21 @@ public class SlashClickerEphemeral extends ApplicationCommand {
                 // Create a button that can be used until the bot restarts
                 .ephemeral()
 
-                // Make it so this button is only usable once
-                // this is not an issue as we recreate the button everytime.
-                // If this wasn't usable only once, the timeout would run for each button.
-                .singleUse(true)
-
                 // Only allow the caller to use the button
                 .constraints(interactionConstraints -> {
                     interactionConstraints.addUsers(event.getUser());
                 })
 
-                // Run this callback after the button hasn't been used for a day
+                // Run this callback 15 minutes after the button has been created
                 // The timeout gets cancelled if the button is invalidated
-                .timeout(Duration.ofDays(1), () -> {
+                .timeout(Duration.ofMinutes(15), () -> {
                     System.out.println("User finished clicking " + count + " cookies");
                 })
 
                 // When clicked, run this callback
                 .bindTo(buttonEvent -> {
                     final Button newButton = createButton(buttonEvent, count + 1);
-                    buttonEvent.editComponents(ActionRow.of(newButton)).queue();
+                    buttonEvent.editButton(newButton).queue();
                 })
                 .build();
     }

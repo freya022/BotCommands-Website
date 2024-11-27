@@ -45,7 +45,7 @@ public class SlashClickerPersistent extends ApplicationCommand {
     @JDAButtonListener(COOKIE_BUTTON_NAME)
     public void onCookieClick(ButtonEvent event, @ComponentData int count) {
         final Button newButton = createButton(event, count + 1);
-        event.editComponents(ActionRow.of(newButton)).queue();
+        event.editButton(newButton).queue();
     }
 
     // Same thing here, names don't collide with other types of listener
@@ -63,11 +63,6 @@ public class SlashClickerPersistent extends ApplicationCommand {
 
                 // Create a button that can be used even after a restart
                 .persistent()
-
-                // Make it so this button is only usable once
-                // this is not an issue as we recreate the button everytime.
-                // If this wasn't usable only once, the timeout would run for each button.
-                .singleUse(true)
 
                 // Only allow the caller to use the button
                 .constraints(interactionConstraints -> {

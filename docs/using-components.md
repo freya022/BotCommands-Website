@@ -36,8 +36,8 @@ which can be changed.
 
 !!! Example
     === "Kotlin"
-        In Kotlin, we can use extensions to make sure we call our component handlers in a type-safe manner,
-        this way you will have a compile error if the handler and the arguments don't match,
+        In Kotlin, we can use extensions to make sure we call our component handlers in a type-safe manner.
+        This way, you will have a compiler error if the handler and the arguments don't match,
         it will also allow using handlers without setting a name.
     
         This can only be used when the input argument types matches the handler parameter types.
