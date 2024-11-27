@@ -53,7 +53,7 @@ def on_pre_build(**kwargs):
 
 @plugins.event_priority(100)
 def on_page_markdown(markdown: str, **kwargs) -> str:
-    markdown = re.sub(r'\[(.*?)]\[\[([\w#(), .]+)]]', replace_identifier_keep_label, markdown)
+    markdown = re.sub(r'\[(.*?)]\[\[([\w#(), .=]+)]]', replace_identifier_keep_label, markdown)
     markdown = re.sub(r'\[\[([\w#(), .]+)]]', replace_identifier_with_recommended, markdown)
     return markdown
 

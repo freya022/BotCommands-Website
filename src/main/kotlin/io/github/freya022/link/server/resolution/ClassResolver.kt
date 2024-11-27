@@ -2,6 +2,7 @@ package io.github.freya022.link.server.resolution
 
 import io.github.freya022.link.server.LinkException
 import io.github.freya022.link.server.LinkRepresentation
+import io.github.freya022.link.server.LinkRequest
 import io.github.freya022.link.server.utils.apiClasses
 import io.github.freya022.link.server.utils.filterBySimpleName
 import io.github.freya022.link.server.utils.getBaseLink
@@ -11,7 +12,8 @@ import kotlin.metadata.kind
 
 object ClassResolver {
 
-    fun singleClass(className: String): LinkRepresentation {
+    fun singleClass(request: LinkRequest): LinkRepresentation {
+        val className = request.identifier
         val classes = apiClasses.filterBySimpleName(className)
         if (classes.isEmpty()) {
             throw LinkException("'$className' was not found")

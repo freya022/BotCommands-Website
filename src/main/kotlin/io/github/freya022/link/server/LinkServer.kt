@@ -67,13 +67,15 @@ private fun Routing.link() {
     }
 }
 
-private fun getIdentifierLinkRepresentation(identifier: String): LinkRepresentation {
+private fun getIdentifierLinkRepresentation(query: String): LinkRepresentation {
+    val request = LinkRequest(query)
+
     // Extensions are handled implicitly because they are treated as top-level functions in KDocs
-    return if (identifier[0].isLowerCase()) { // Top-level
-        TopLevelResolver.singleTopLevel(identifier)
-    } else if ('#' in identifier) { // Member (property or function)
-        ClassMemberResolver.singleMember(identifier)
+    return if (request.identifier[0].isLowerCase()) { // Top-level
+        TopLevelResolver.singleTopLevel(request)
+    } else if ('#' in request.identifier) { // Member (property or function)
+        ClassMemberResolver.singleMember(request)
     } else { // Class
-        ClassResolver.singleClass(identifier)
+        ClassResolver.singleClass(request)
     }
 }
