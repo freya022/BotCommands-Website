@@ -48,19 +48,7 @@ which can be changed.
         ```kotlin
         --8<-- "wiki/commands/slash/SlashClicker.kt:persistent-clicker-kotlin"
         ```
-    
-        You can also use components without setting a handler, and instead await the event:
-    
-        ```kotlin
-        --8<-- "wiki/commands/slash/SlashClickWaiter.kt:click_waiter-kotlin"
-        ```
-    
-        1. [[awaitOrNull]] returns `null` when the component expired, useful when combined with an elvis operator,
-        this is the equivalent of a `#!java try catch` on `TimeoutCancellationException`.
-        Since there is no timeout set here, the [default duration][[Components#defaultEphemeralTimeout]] is used.
-    
-        2. [[awaitUnit]] is an extension to await and then return `Unit`, 
-        which helps in common scenarios where you want to reply using an elvis operator.
+
     === "Java"
         ```java
         --8<-- "wiki/java/commands/slash/SlashClickerPersistent.java:persistent-clicker-java"
@@ -80,6 +68,12 @@ Ephemeral components have a default timeout set in [[Components#defaultEphemeral
     === "Kotlin"
         ```kotlin
         --8<-- "wiki/commands/slash/SlashClicker.kt:ephemeral-clicker-kotlin"
+        ```
+
+        You can also use components without setting a handler, and instead await the event:
+
+        ```kotlin
+        --8<-- "wiki/commands/slash/SlashClicker.kt:ephemeral-awaiting-clicker-kotlin"
         ```
     === "Java"
         ```java

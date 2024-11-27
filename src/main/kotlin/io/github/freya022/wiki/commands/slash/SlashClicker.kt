@@ -1,6 +1,7 @@
 package io.github.freya022.wiki.commands.slash
 
 import dev.minn.jda.ktx.coroutines.await
+import dev.minn.jda.ktx.interactions.components.asDisabled
 import dev.minn.jda.ktx.interactions.components.row
 import dev.minn.jda.ktx.messages.reply_
 import io.github.freya022.botcommands.api.commands.annotations.Command
@@ -19,11 +20,12 @@ import io.github.freya022.botcommands.api.components.builder.timeoutWith
 import io.github.freya022.botcommands.api.components.data.ComponentTimeoutData
 import io.github.freya022.botcommands.api.components.event.ButtonEvent
 import io.github.freya022.wiki.switches.wiki.WikiLanguage
-import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withTimeoutOrNull
 import net.dv8tion.jda.api.interactions.Interaction
 import net.dv8tion.jda.api.interactions.callbacks.IDeferrableCallback
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 // Exists only for @TopLevelSlashCommandData
 @Command
@@ -127,3 +129,56 @@ class SlashEphemeralClicker(private val buttons: Buttons) : ApplicationCommand()
     }
 }
 // --8<-- [end:ephemeral-clicker-kotlin]
+
+@WikiLanguage(WikiLanguage.Language.KOTLIN)
+// --8<-- [start:ephemeral-awaiting-clicker-kotlin]
+@Command
+class SlashEphemeralAwaitingClicker(private val buttons: Buttons) : ApplicationCommand() {
+    @JDASlashCommand(name = "clicker", subcommand = "ephemeral_await", description = "Creates a button you can click until the bot restarts or 15 minutes later")
+    suspend fun onSlashClicker(event: GuildSlashEvent) {
+        val button = createButton(event, count = 0)
+        event.replyComponents(row(button)).await()
+
+        var count = 0
+        // When the 15 minutes expire, the loop is stopped due to a TimeoutCancellationException
+        // and the code below runs
+        withTimeoutOrNull(15.seconds) {
+            while (true) {
+                // Wait for the button to be clicked and edit it with a new label
+                // you can keep the same button id as we keep awaiting the same one
+                val buttonEvent = button.await()
+                buttonEvent.editButton(button.withLabel("${++count} cookies")).await()
+            }
+        }
+
+        // Try to disable components if the interaction is still usable
+        if (!event.hook.isExpired) {
+            event.hook.retrieveOriginal()
+                .map { it.components.asDisabled() }
+                .flatMap { event.hook.editOriginalComponents(it) }
+                .queue()
+            event.hook.sendMessage("You clicked $count cookies!").setEphemeral(true).queue()
+        } else {
+            println("User finished clicking $count cookies")
+        }
+    }
+
+    private suspend fun createButton(event: Interaction, count: Int): Button {
+        // Create a primary-styled button
+        return buttons.primary("$count cookies")
+            // Sets the emoji on the button,
+            // this can be an unicode emoji, an alias or even a custom emoji
+            .withEmoji("cookie")
+
+            // Create a button that can be used until the bot restarts
+            .ephemeral {
+                // Only allow the caller to use the button
+                constraints += event.user
+
+                bindTo { t ->
+                    println("click")
+                }
+            }
+    }
+}
+// --8<-- [end:ephemeral-awaiting-clicker-kotlin]
