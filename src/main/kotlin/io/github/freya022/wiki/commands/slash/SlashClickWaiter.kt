@@ -6,20 +6,13 @@ import io.github.freya022.botcommands.api.commands.annotations.Command
 import io.github.freya022.botcommands.api.commands.application.ApplicationCommand
 import io.github.freya022.botcommands.api.commands.application.slash.GuildSlashEvent
 import io.github.freya022.botcommands.api.commands.application.slash.annotations.JDASlashCommand
-import io.github.freya022.botcommands.api.components.Button
 import io.github.freya022.botcommands.api.components.Buttons
+import io.github.freya022.botcommands.api.components.awaitOrNull
 import io.github.freya022.botcommands.api.components.event.ButtonEvent
 import io.github.freya022.botcommands.api.core.utils.awaitUnit
 import io.github.freya022.botcommands.api.core.utils.deleteDelayed
 import io.github.freya022.botcommands.api.core.utils.replaceWith
-import kotlinx.coroutines.TimeoutCancellationException
 import kotlin.time.Duration.Companion.seconds
-
-private suspend fun Button.awaitOrNull(): ButtonEvent? = try {
-    await()
-} catch (e: TimeoutCancellationException) {
-    null
-}
 
 // --8<-- [start:click_waiter-kotlin]
 @Command
