@@ -3,7 +3,7 @@ package io.github.freya022.link.server.utils
 import kotlin.metadata.*
 import kotlin.metadata.jvm.moduleName
 
-fun KmFunction.toSimpleString(): String = buildString {
+fun KotlinMember.toSimpleString(): String = buildString {
     receiverParameterType?.let { receiver ->
         this.append(receiver.toSimpleString(this@toSimpleString))
         this.append(".")
@@ -11,7 +11,7 @@ fun KmFunction.toSimpleString(): String = buildString {
     this.append(name)
 }
 
-fun KmType?.toSimpleString(func: KmFunction): String {
+fun KmType?.toSimpleString(func: KotlinMember): String {
     if (this == null) return "*"
 
     val classifierStr = when (val argClassifier = classifier) {
@@ -29,7 +29,7 @@ fun KmType?.toSimpleString(func: KmFunction): String {
     return classifierStr + argumentsStr
 }
 
-fun KmTypeProjection.toSimpleString(func: KmFunction): String = buildString {
+fun KmTypeProjection.toSimpleString(func: KotlinMember): String = buildString {
     if (variance == KmVariance.IN) {
         append("in ")
     } else if (variance == KmVariance.OUT) {

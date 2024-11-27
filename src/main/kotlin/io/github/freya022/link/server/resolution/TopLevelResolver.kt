@@ -38,11 +38,13 @@ object TopLevelResolver {
             .filter { function -> function.name == identifier }
             // Good news! This takes the *first* one, just like how overload resolution works in Dokka!
             .distinctBy { function -> function.name }
+            .map(::KotlinFunction)
             .map { function -> LinkRepresentation(function.toSimpleString(), "$baseLink/${function.name.toKDocCase()}.html") }
 
         val propertyCandidates = kmPackage.properties
             .filter { property -> property.name == identifier }
-            .map { property -> LinkRepresentation(identifier, "$baseLink/${property.name.toKDocCase()}.html") }
+            .map(::KotlinProperty)
+            .map { property -> LinkRepresentation(property.toSimpleString(), "$baseLink/${property.name.toKDocCase()}.html") }
 
         return functionCandidates + propertyCandidates
     }
