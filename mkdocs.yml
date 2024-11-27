@@ -6,6 +6,7 @@ theme:
     - navigation.indexes
     - navigation.instant # Faster loading
     - navigation.tabs # Top level horizontal tabs
+    - navigation.top
     - toc.integrate # Integrated Table Of Contents (shows #, ##... sections)
     - content.code.annotate # Annotations on lines of codeicon:
     - content.code.copy
