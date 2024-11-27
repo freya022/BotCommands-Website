@@ -1410,16 +1410,16 @@ their handlers are callbacks, which can also have a timeout set, and also use ca
 <span class="w">        </span><span class="n">event</span><span class="p">.</span><span class="na">replyComponents</span><span class="p">(</span><span class="n">row</span><span class="p">(</span><span class="n">button</span><span class="p">)).</span><span class="na">await</span><span class="p">()</span>
 
 <span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nv">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
-<span class="w">        </span><span class="c1">// When the 15 minutes expire, the loop is stopped due to a TimeoutCancellationException</span>
-<span class="w">        </span><span class="c1">// and the code below runs</span>
-<span class="w">        </span><span class="n">withTimeoutOrNull</span><span class="p">(</span><span class="m">15.</span><span class="n">seconds</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// When the 15 minutes expire,</span>
+<span class="w">        </span><span class="c1">// the loop is stopped due to a TimeoutCancellationException (see &#39;await&#39; on the button).</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="c1">// Wait for the button to be clicked and edit it with a new label</span>
 <span class="w">                </span><span class="c1">// you can keep the same button id as we keep awaiting the same one</span>
 <span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">buttonEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">button</span><span class="p">.</span><span class="na">await</span><span class="p">()</span>
 <span class="w">                </span><span class="n">buttonEvent</span><span class="p">.</span><span class="na">editButton</span><span class="p">(</span><span class="n">button</span><span class="p">.</span><span class="na">withLabel</span><span class="p">(</span><span class="s">&quot;</span><span class="si">${</span><span class="o">++</span><span class="n">count</span><span class="si">}</span><span class="s"> cookies&quot;</span><span class="p">)).</span><span class="na">await</span><span class="p">()</span>
 <span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">TimeoutCancellationException</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
 
 <span class="w">        </span><span class="c1">// Try to disable components if the interaction is still usable</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">event</span><span class="p">.</span><span class="na">hook</span><span class="p">.</span><span class="na">isExpired</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -1445,9 +1445,8 @@ their handlers are callbacks, which can also have a timeout set, and also use ca
 <span class="w">                </span><span class="c1">// Only allow the caller to use the button</span>
 <span class="w">                </span><span class="n">constraints</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">user</span>
 
-<span class="w">                </span><span class="n">bindTo</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">)</span>
-<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="c1">// Invalidate the button after 15 minutes, cancelling all coroutines awaiting on the button</span>
+<span class="w">                </span><span class="n">timeout</span><span class="p">(</span><span class="m">15.</span><span class="n">minutes</span><span class="p">)</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
