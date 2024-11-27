@@ -3,7 +3,7 @@
 Slash commands are the new way of defining commands, even though there are limitations with them, 
 we do have some advantages such as being easier to fill in, choices and auto-completion.
 
-!!! info "If you wish to handle application commands yourself, you can disable them by disabling [`BApplicationConfig#enable`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.config/-b-application-config-builder/enable.html)."
+!!! info "If you wish to handle application commands yourself, you can disable them by disabling [[BApplicationConfigBuilder#enable]]."
 
 ## Defining the command method
 
@@ -40,14 +40,14 @@ while the declaring class must extend `ApplicationCommand`.
         ```
 
 ### Top level configuration
-You can configure properties which only applies to top-level commands, using [`#!java @TopLevelSlashCommandData`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.annotations/-top-level-slash-command-data/index.html),
+You can configure properties which only applies to top-level commands, using [[TopLevelSlashCommandData]],
 this includes elements such as the `scope` (guild, global or global without DMs), `description` and whether the command is locked to admins by default.
 
 ### Subcommands
 
 To make a subcommand, set the `name` and `subcommand` on the annotation.
 
-You will also need to add a [`#!java @TopLevelSlashCommandData`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.annotations/-top-level-slash-command-data/index.html),
+You will also need to add a [[TopLevelSlashCommandData]],
 it must only be used **once per top-level** command, this allows you to set top-level attributes.
 
 !!! example
@@ -115,7 +115,7 @@ be careful to check against the command path as well as the option's display nam
 !!! info "Learn how to create an autocomplete handler [here](using-autocomplete.md)"
 
 Enabling autocompletion for an option is done by referencing an existing handler,
-in the [`autocomplete`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.annotations/-slash-option/autocomplete.html) property of your `#!java @SlashOption`.
+in the [`autocomplete`][[SlashOption#autocomplete]] property of your [[SlashOption]].
 
 !!! example
 
@@ -135,7 +135,7 @@ in the [`autocomplete`](https://docs.bc.freya02.dev/-bot-commands/io.github.frey
 
 Generated values are parameters that get their values from a lambda everytime a command is run.
 
-You must give one by overriding [`ApplicationCommand#getGeneratedValueSupplier`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application/-application-command/get-generated-value-supplier.html), 
+You must give one by overriding [[ApplicationCommand#getGeneratedValueSupplier]], 
 similarly to adding choices.
 
 As always, make sure to check against the command path as well as the option's display name.
@@ -168,7 +168,7 @@ This lets you reject application commands if the user tries to use them too ofte
     ```
 
 #### Using an existing rate limiter
-Nothing as simple as using `#!java @RateLimitReference` with the `group` of a rate limiter defined in a `RateLimitProvider`.
+Nothing as simple as using [[RateLimitReference]] with the `group` of a rate limiter defined in a `RateLimitProvider`.
 
 === "Kotlin"
     ```kotlin title="WikiRateLimitProvider.kt"
@@ -192,14 +192,14 @@ Nothing as simple as using `#!java @RateLimitReference` with the `group` of a ra
 A cooldown is a rate limit, but with fewer parameters, it can be used as `#!java @Cooldown(5, ChronoUnit.SECONDS /* also scope and deleteOnRefill */)`.
 
 ### Filtering commands
-You can use [`#!java @DeclarationFilter`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.annotations/-declaration-filter/index.html) if you wish to declare a **guild** command conditionally.
+You can use [[DeclarationFilter]] if you wish to declare a **guild** command conditionally.
 
 !!! note
 
     There is no equivalent for DSL commands as you can check and return early with your own code.
 
 #### Creating the filter
-Create a service implementing [`CommandDeclarationFilter`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application/-command-declaration-filter/index.html),
+Create a service implementing [[CommandDeclarationFilter]],
 and make the method return `true` if the command can be declared.
 All filters must return `true` for the command to be declared.
 
@@ -216,7 +216,7 @@ All filters must return `true` for the command to be declared.
         ```
 
 #### Using the filter
-Add a `@DeclarationFilter` on your command and reference your filter inside it.
+Add a [[DeclarationFilter]] on your command and reference your filter inside it.
 
 !!! example
 
@@ -234,8 +234,8 @@ Add a `@DeclarationFilter` on your command and reference your filter inside it.
 
 Commands can be DSL-declared by either implementing:
 
-- `GlobalApplicationCommandProvider` (for global / guild-only global application commands), or,
-- `GuildApplicationCommandProvider` (for guild-specific application commands)
+- [[GlobalApplicationCommandProvider]] (for global / guild-only global application commands), or,
+- [[GuildApplicationCommandProvider]] (for guild-specific application commands)
 
 You can then use the `slashCommand` method on the `manager`, give it the command name, the command method, 
 and then configure your command.
@@ -269,7 +269,7 @@ You can then add a subcommand by using `subcommand`, where each subcommand is it
 Options can be added with a parameter and declaring it using `option` in your command builder,
 where the `declaredName` is the name of your parameter, the block will let you change the description, choices, etc.
 
-All supported types are documented under `ParameterResolver`, and [other types can be added](option-resolvers.md).
+All supported types are documented under [[ParameterResolver]], and [other types can be added](option-resolvers.md).
 
 !!! example
     ```kotlin
@@ -301,12 +301,11 @@ Adding choices is very straight forward, you only have to give a list of choices
 !!! info "Learn how to create an autocomplete handler [here](using-autocomplete.md)"
 
 Enabling autocompletion for an option is done by referencing an existing handler,
-either using [`autocompleteByFunction`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.options.builder/-slash-command-option-builder/autocomplete-by-function.html) or [`autocompleteByName`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.options.builder/-slash-command-option-builder/autocomplete-by-name.html).
+either using [`autocompleteByFunction`][[SlashCommandOptionBuilder#autocompleteByFunction]] or [`autocompleteByName`][[SlashCommandOptionBuilder#autocompleteByName]].
 
 !!! tip
 
-    I recommend using [`autocompleteByFunction`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.options.builder/-slash-command-option-builder/autocomplete-by-function.html) 
-    as it avoids typing the name twice.
+    I recommend using `autocompleteByFunction` as it avoids typing the name twice.
 
 !!! example
 
@@ -325,7 +324,7 @@ This lets you reject application commands if the user tries to use them too ofte
 ```
 
 #### Using an existing rate limiter
-Nothing as simple as using `rateLimitReference` with the `group` of a rate limiter defined in a `RateLimitProvider`.
+Nothing as simple as using `rateLimitReference` with the `group` of a rate limiter defined in a [[RateLimitProvider]].
 
 ```kotlin title="WikiRateLimitProvider.kt"
 --8<-- "wiki/ratelimit/WikiRateLimitProvider.kt:rate_limit_provider-kotlin"

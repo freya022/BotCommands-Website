@@ -12,11 +12,11 @@ all of which can be cached.
 
 === "Code-declared"
 
-    You will have to implement the [`AutocompleteHandlerProvider`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.declaration/-autocomplete-handler-provider/index.html),
+    You will have to implement the [[AutocompleteHandlerProvider]],
     enabling you to declare autocomplete handlers using the manager.
 
-    You can optionally put a name on the handler, if you plan on using [`autocompleteByName`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.options.builder/-slash-command-option-builder/autocomplete-by-name.html), 
-    however, that's not necessary when using [`autocompleteByFunction`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.options.builder/-slash-command-option-builder/autocomplete-by-function.html).
+    You can optionally put a name on the handler, if you plan on using [`autocompleteByName`][[SlashCommandOptionBuilder#autocompleteByName]], 
+    however, that's not necessary when using [`autocompleteByFunction`][[SlashCommandOptionBuilder#autocompleteByFunction]].
 
     ```kotlin
     --8<-- "wiki/commands/slash/SlashWord.kt:word_autocomplete-kotlin_dsl"
@@ -24,13 +24,13 @@ all of which can be cached.
 
 === "Annotated"
 
-    You will have to use [`@AutocompleteHandler`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.declaration/-autocomplete-handler-provider/index.html),
+    You will have to use [[AutocompleteHandler]],
     give it a unique name, I'd recommend using one similar to `ClassName: optionName`, it will be useful to reference it in commands later on.
 
     !!! info
 
-        An annotated autocomplete handler can still be referenced [by name](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.options.builder/-slash-command-option-builder/autocomplete-by-name.html) 
-        and [by function](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.options.builder/-slash-command-option-builder/autocomplete-by-function.html)
+        An annotated autocomplete handler can still be referenced [by name][[SlashCommandOptionBuilder#autocompleteByName]] 
+        and [by function][[SlashCommandOptionBuilder#autocompleteByFunction]]
         in code-declared commands.
 
     === "Kotlin"
@@ -51,8 +51,7 @@ You may also configure other properties:
 !!! tip "Sorting autocomplete results of `Choice` and custom types"
 
     Sorting results by relevancy is a tricky task, while it can be as simple as `myItemName.startsWith(input)`
-    you can try to use [`AutocompleteAlgorithms`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete/-autocomplete-algorithms/index.html)
-    to easily sort the results. 
+    you can try to use [[AutocompleteAlgorithms]] to easily sort the results. 
     This is what gets applied on primitive types, but the results won't always be the best.
 
     It may sometimes makes more sense to use one "similarity" algorithm over another, 
@@ -69,42 +68,41 @@ When the results are stable, you can enable autocomplete caching, saving time wh
 
 === "Code-declared"
 
-    To enable it, configure the cache using the [`cache`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.builder/-autocomplete-info-builder/cache.html) 
-    configurer.
+    To enable it, configure the cache using the [`cache`][[AutocompleteInfoBuilder#cache]] configurer.
 
     By default it will cache by using the user input, but you can add arguments to the cache key by:
 
-    - Adding the user ID with [`userLocal`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.builder/-autocomplete-cache-info-builder/user-local.html)
-    - Adding the channel ID with [`channelLocal`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.builder/-autocomplete-cache-info-builder/channel-local.html)
-    - Adding the guild ID with [`guildLocal`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.builder/-autocomplete-cache-info-builder/guild-local.html)
-    - Adding values of options by their names in [`compositeKeys`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.builder/-autocomplete-cache-info-builder/composite-keys.html)    
+    - Adding the user ID with [`userLocal`][[AutocompleteCacheInfoBuilder#userLocal]]
+    - Adding the channel ID with [`channelLocal`][[AutocompleteCacheInfoBuilder#channelLocal]]
+    - Adding the guild ID with [`guildLocal`][[AutocompleteCacheInfoBuilder#guildLocal]]
+    - Adding values of options by their names in [`compositeKeys`][[AutocompleteCacheInfoBuilder#compositeKeys]]    
 
 === "Annotated"
 
-    To enable it, configure the cache using [`#!java @CacheAutocomplete`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.annotations/-cache-autocomplete/index.html).
+    To enable it, configure the cache using [[CacheAutocomplete]].
 
     By default it will cache by using the user input, but you can add arguments to the cache key by:
 
-    - Adding the user ID with [`userLocal`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.annotations/-cache-autocomplete/user-local.html)
-    - Adding the channel ID with [`channelLocal`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.annotations/-cache-autocomplete/channel-local.html)
-    - Adding the guild ID with [`guildLocal`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.annotations/-cache-autocomplete/guild-local.html)
-    - Adding values of options by their names in [`compositeKeys`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete.annotations/-cache-autocomplete/composite-keys.html)
+    - Adding the user ID with [`userLocal`][[CacheAutocomplete#userLocal]]
+    - Adding the channel ID with [`channelLocal`][[CacheAutocomplete#channelLocal]]
+    - Adding the guild ID with [`guildLocal`][[CacheAutocomplete#guildLocal]]
+    - Adding values of options by their names in [`compositeKeys`][[CacheAutocomplete#compositeKeys]]
 
 !!! note
     
-    If the outputs for the same input are stable but may rarely change (think, a list that updates daily), you can [invalidate autocomplete caches](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application/-application-commands-context/invalidate-autocomplete-cache.html)
+    If the outputs for the same input are stable but may rarely change (think, a list that updates daily), you can [invalidate autocomplete caches][[ApplicationCommandsContext#invalidateAutocompleteCache]]
     when it eventually does.
 
 !!! tip
 
-    You can also disable the autocomplete cache while developing your bot with the [disableAutocompleteCache](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.config/-b-application-config-builder/disable-autocomplete-cache.html)
+    You can also disable the autocomplete cache while developing your bot with the [disableAutocompleteCache][[BApplicationConfigBuilder#disableAutocompleteCache]]
     property, this should help you test your handler live, using hotswap.
 
 ## Transforming elements into choices
 
 If you wish to return collections of anything but the default supported types,
 you will need to create a service which transforms those objects into choices,
-by implementing [`AutocompleteTranformer`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.autocomplete/-autocomplete-transformer/index.html).
+by implementing [[AutocompleteTransformer]].
 
 !!! example
 

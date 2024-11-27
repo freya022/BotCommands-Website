@@ -2,7 +2,7 @@ In addition to what [JDA-KTX](https://github.com/MinnDevelopment/jda-ktx) offers
 
 ## JDA
 ### REST actions
-??? example "[`awaitUnit`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-unit.html) - Awaits completion and returns `Unit`, particularly useful to reply + return" 
+??? example "[[awaitUnit]] — Awaits completion and returns `Unit`, particularly useful to reply + return" 
 
     ```kotlin
     fun onSlashCommand(event: GuildSlashEvent, inputUser: InputUser)
@@ -11,7 +11,7 @@ In addition to what [JDA-KTX](https://github.com/MinnDevelopment/jda-ktx) offers
     }
     ```
 
-??? example "[`awaitOrNullOn`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-or-null-on.html) - Awaits completion, returns `null` if the action failed with the expected error response"
+??? example "[[awaitOrNullOn]] — Awaits completion, returns `null` if the action failed with the expected error response"
 
     ```kotlin
     fun onSlashBanInfo(event: GuildSlashEvent, user: User)
@@ -20,7 +20,7 @@ In addition to what [JDA-KTX](https://github.com/MinnDevelopment/jda-ktx) offers
     }
     ```
 
-??? example "[`awaitCatching`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-catching.html) - Awaits completion and returns a `Result` with the wrapped value/failure"
+??? example "[[awaitCatching]] — Awaits completion and returns a `Result` with the wrapped value/failure"
 
     ```kotlin
     fun onSlashBanInfo(event: GuildSlashEvent, user: User)
@@ -33,11 +33,11 @@ In addition to what [JDA-KTX](https://github.com/MinnDevelopment/jda-ktx) offers
     ```
 
 ### Error response handling
-- [`onErrorResponse`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/on-error-response.html) - See `awaitCatching`
-- [`Result<Unit>.ignore`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/ignore.html) - Ignores and clears the specified error responses
-- [`Result<T>.handle`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/handle.html) - Supplies a value when the specified error response is caught
+- [[onErrorResponse]] — Runs code if the specified error response was returned, see `awaitCatching` above
+- [[ignore]] — Ignores and clears the specified error responses
+- [[handle]] — Replaced the specified error response with the calculated value
 
-??? example "[`runIgnoringResponse`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/run-ignoring-response.html) - Runs the block and ignores the following error responses, throws other exceptions"
+??? example "[[runIgnoringResponse]] — Runs the block and ignores the following error responses, throws other exceptions"
 
     ```kotlin
     runIgnoringResponse(ErrorResponse.CANNOT_SEND_TO_USER) {
@@ -45,7 +45,7 @@ In addition to what [JDA-KTX](https://github.com/MinnDevelopment/jda-ktx) offers
     }
     ```
 
-??? example "[`runIgnoringResponseOrNull`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/run-ignoring-response-or-null.html) - Runs the block and returns `null` on the following error responses, throws other exceptions"
+??? example "[[runIgnoringResponseOrNull]] — Runs the block and returns `null` on the following error responses, throws other exceptions"
 
     ```kotlin
     suspend fun Guild.retrieveBanOrNull(user: UserSnowflake): Ban? = runIgnoringResponseOrNull(ErrorResponse.UNKNOWN_BAN) {
@@ -54,36 +54,36 @@ In addition to what [JDA-KTX](https://github.com/MinnDevelopment/jda-ktx) offers
     ```
 
 ### Messages
-- [`MessageCreateData.toEditData`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-edit-data.html) - Does what it says, the edit data will replace the content of the entire message
-- [`MessageEditData.toCreateData`]() - Do I need to say anything?
+- [[toEditData]] — Does what it says, the edit data will replace the content of the entire message
+- [[toCreateData]] — Do I need to say anything?
 
-- [`MessageCreateData.send`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/send.html) - Sends the message, this is useful for chaining
-- [`MessageEditData.edit`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/edit.html) - Edits with that message, this is useful for chaining
-- [`InteractionHook.replaceWith`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/replace-with.html) - Replaces this interaction's message with the following content
+- [[send]] — Sends the message, this is useful for chaining
+- [[edit]] — Edits with that message, this is useful for chaining
+- [[replaceWith]] — Replaces this interaction's message with the following content
 
-- [`RestAction<R>.deleteDelayed`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/delete-delayed.html) - Deletes the message after the delay, the rest action itself is delayed, not the code execution
+- [[deleteDelayed]] — Deletes the message after the delay, the rest action itself is delayed, not the code execution (unless you use `await`)
 
 ### Entity retrieval
 Those check the cache before doing a request.
 
-- [`Guild.retrieveMemberOrNull`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-member-or-null.html) - Returns null if the member does not exist
-- [`JDA.retrieveUserOrNull`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-user-or-null.html) - Returns null if the user does not exist
-- [`Guild.retrieveThreadChannelById`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-thread-channel-by-id.html) - Retrieves a thread by ID, from any thread container, archived or not.
-- [`Guild.retrieveThreadChannelOrNull`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-thread-channel-or-null.html) - Same but returns null if it does not exist, if the bot doesn't have access to it, or if the channel isn't a thread.
+- [[retrieveMemberOrNull]] — Returns null if the member does not exist
+- [[retrieveUserOrNull]] — Returns null if the user does not exist
+- [[retrieveThreadChannelById]] — Retrieves a thread by ID, from any thread container, archived or not.
+- [[retrieveThreadChannelOrNull]] — Same but returns null if it does not exist, if the bot doesn't have access to it, or if the channel isn't a thread.
 
 ### Misc
-??? example "[`suppressContentWarning`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/suppress-content-warning.html) - Runs the block and suppresses warnings emitted by JDA when reading message content, this is mostly useful in message context commands"
+??? example "[[suppressContentWarning]] — Runs the block and suppresses warnings emitted by JDA when reading message content, this is mostly useful in message context commands"
 
     ```kotlin
     val contentRaw = suppressContentWarning { message.contentRaw }
     ```
 
-- [`getMissingPermissions`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/get-missing-permissions.html) - Gets the missing permissions from the required permissions, for the given entity, in the specified channel
+- [[getMissingPermissions]] — Gets the missing permissions from the required permissions, for the given entity, in the specified channel
 
 Any method accepting a Java `Duration` should also have an extension using Kotlin's `Duration`
 
 ## Resolvers
-??? example "[`enumResolver`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/enum-resolver.html) - Creates a parameter resolver which transforms arguments into an enum entry, compatible with most handlers"
+??? example "[[enumResolver]] — Creates a parameter resolver which transforms arguments into an enum entry, compatible with most handlers"
 
     ```kotlin
     enum class MyEnum {
@@ -102,12 +102,12 @@ Any method accepting a Java `Duration` should also have an extension using Kotli
     }
     ```
 
-??? example "[`resolverFactory`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/resolver-factory.html) - Creates a factory for parameter resolvers, useful to avoid the boilerplate of using [`TypedParameterResolverFactory`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/-typed-parameter-resolver-factory/index.html)"
+??? example "[[resolverFactory]] — Creates a factory for parameter resolvers, useful to avoid the boilerplate of using [[TypedParameterResolverFactory]]"
 
-    See example on [the docs](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/resolver-factory.html)
+    See example on [the docs][[ResolverFactory]]
 
 ## I/O
-??? example "[`readResource`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/read-resource.html) - Gets an `InputStream` of a resource from the classpath"
+??? example "[[readResource]] — Gets an `InputStream` of a resource from the classpath"
 
     ```kotlin
     readResource("/file.txt").use { contentStream ->
@@ -115,13 +115,13 @@ Any method accepting a Java `Duration` should also have an extension using Kotli
     }
     ```
 
-??? example "[`readResourceAsString`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/read-resource-as-string.html) - Gets a resource from the classpath as a `String`"
+??? example "[[readResourceAsString]] — Gets a resource from the classpath as a `String`"
 
     ```kotlin
     val content = readResourceAsString("/file.txt")
     ```
 
-??? example "[`withResource`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/with-resource.html) - Uses an `InputStream` of a resource from the classpath"
+??? example "[[withResource]] — Uses an `InputStream` of a resource from the classpath"
 
     ```kotlin
     withResource("/file.txt") { contentStream ->
@@ -130,7 +130,7 @@ Any method accepting a Java `Duration` should also have an extension using Kotli
     ```
 
 ## Coroutines
-??? example "[`namedDefaultScope`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/named-default-scope.html) - Creates a `CoroutineScope` with a thread name and a fixed thread pool"
+??? example "[[namedDefaultScope]] — Creates a `CoroutineScope` with a thread name and a fixed thread pool"
 
     ```kotlin
     // 1 thread named "[feature] timeout"
@@ -145,7 +145,7 @@ Any method accepting a Java `Duration` should also have an extension using Kotli
     ```
 
 ## Logging
-??? example "[`KotlinLogging.loggerOf`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/logger-of.html) - Creates a logger targeting the specified class"
+??? example "[[loggerOf]] — Creates a logger targeting the specified class"
 
     ```kotlin
     private val logger = KotlinLogging.loggerOf<MyService>()
@@ -157,10 +157,10 @@ Any method accepting a Java `Duration` should also have an extension using Kotli
     ```
 
 ## Collections
-- [`enumSetOf`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/enum-set-of.html) - Creates an enum set of the provided type
-- [`enumSetOfAll`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/enum-set-of-all.html) - Creates an enum set of the provided type, with all the entries in it
-- [`enumMapOf`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/enum-map-of.html) - Creates a map with an enum key
-- [`toImmutableList`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-immutable-list.html) - Creates an _immutable copy_ of the list
-- [`toImmutableSet`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-immutable-set.html) - Creates an _immutable copy_ of the set
-- [`toImmutableMap`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-immutable-map.html) - Creates an _immutable copy_ of the map
-- [`containsAny`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/contains-any.html) - Checks if the collection contains any of the provided elements
+- [[enumSetOf]] — Creates an enum set of the provided type
+- [[enumSetOfAll]] — Creates an enum set of the provided type, with all the entries in it
+- [[enumMapOf]] — Creates a map with an enum key
+- [[toImmutableList]] — Creates an _immutable copy_ of the list
+- [[toImmutableSet]] — Creates an _immutable copy_ of the set
+- [[toImmutableMap]] — Creates an _immutable copy_ of the map
+- [[containsAny]] — Checks if the collection contains any of the provided elements

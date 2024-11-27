@@ -7,7 +7,7 @@ Varargs lets you generate options (up to 25 options per command) and put the val
 the number of required options is also configurable.
 
 ### Annotation-declared commands
-Use [`#!java @VarArgs`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.annotations/-var-args/index.html) on the parameter.
+Use [[VarArgs]] on the parameter.
 
 The drawback is that each option will be configured the same, name, description, etc...
 
@@ -38,7 +38,7 @@ Using `optionVararg` or `inlineClassOptionVararg` on your command builder lets y
 ## Mention strings
 !!! info "You can use this annotation on both code-declared and annotation-declared commands"
 
-[`#!java @MentionsString`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.application.slash.annotations/-mentions-string/index.html) is an annotation
+[[MentionsString]] is an annotation
 that lets you retrieve as many mentions as a [string option lets you type](https://docs.jda.wiki/net/dv8tion/jda/api/interactions/commands/build/OptionData.html#MAX_STRING_OPTION_LENGTH),
 you must use it on a `List` parameter with an element type supported by the annotation.
 

@@ -160,7 +160,7 @@ and still be able to get it as a service.
         You can always disable it by adding `BotCommandsAutoConfiguration` to the `exclude` value of your `#!java @SpringBootApplication`.
 
     Configuration of the framework is then done either by using application properties (with the prefix being either `botcommands` or `jda`),
-    or by implementing configurers, see the [`BConfigurer` inheritors](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.config/-b-configurer/index.html).
+    or by implementing configurers, see the [`BConfigurer` inheritors][[BConfigurer]].
 
 ??? tip "Kotlin - Using a custom `CoroutineEventManager`"
 
