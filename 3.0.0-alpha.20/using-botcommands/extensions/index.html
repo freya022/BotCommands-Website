@@ -1211,7 +1211,7 @@
 <h2 id="jda">JDA<a class="headerlink" href="#jda" title="Permanent link">&para;</a></h2>
 <h3 id="rest-actions">REST actions<a class="headerlink" href="#rest-actions" title="Permanent link">&para;</a></h3>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-unit.html"><code>awaitUnit</code></a> - Awaits completion and returns <code>Unit</code>, particularly useful to reply + return</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-unit.html"><code>RestAction&lt;*&gt;.awaitUnit</code></a> — Awaits completion and returns <code>Unit</code>, particularly useful to reply + return</summary>
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">onSlashCommand</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">GuildSlashEvent</span><span class="p">,</span><span class="w"> </span><span class="n">inputUser</span><span class="p">:</span><span class="w"> </span><span class="n">InputUser</span><span class="p">)</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">member</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inputUser</span><span class="p">.</span><span class="na">member</span>
 <span class="w">        </span><span class="o">?:</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">reply_</span><span class="p">(</span><span class="s">&quot;The user needs to be a member of this server!&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ephemeral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">).</span><span class="na">awaitUnit</span><span class="p">()</span>
@@ -1219,7 +1219,7 @@
 </code></pre></div>
 </details>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-or-null-on.html"><code>awaitOrNullOn</code></a> - Awaits completion, returns <code>null</code> if the action failed with the expected error response</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-or-null-on.html"><code>RestAction&lt;R&gt;.awaitOrNullOn</code></a> — Awaits completion, returns <code>null</code> if the action failed with the expected error response</summary>
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">onSlashBanInfo</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">GuildSlashEvent</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="p">)</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ban</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">guild</span><span class="p">.</span><span class="na">retrieveBan</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="na">awaitOrNullOn</span><span class="p">(</span><span class="n">ErrorResponse</span><span class="p">.</span><span class="na">UNKNOWN_BAN</span><span class="p">)</span>
 <span class="w">        </span><span class="o">?:</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">reply_</span><span class="p">(</span><span class="s">&quot;This user is not banned&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ephemeral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">).</span><span class="na">awaitUnit</span><span class="p">()</span>
@@ -1227,7 +1227,7 @@
 </code></pre></div>
 </details>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-catching.html"><code>awaitCatching</code></a> - Awaits completion and returns a <code>Result</code> with the wrapped value/failure</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-catching.html"><code>RestAction&lt;R&gt;.awaitCatching</code></a> — Awaits completion and returns a <code>Result</code> with the wrapped value/failure</summary>
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">onSlashBanInfo</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">GuildSlashEvent</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="p">)</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ban</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">guild</span><span class="p">.</span><span class="na">retrieveBan</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="na">awaitCatching</span><span class="p">()</span>
 <span class="w">        </span><span class="p">.</span><span class="na">onErrorResponse</span><span class="p">(</span><span class="n">ErrorResponse</span><span class="p">.</span><span class="na">UNKNOWN_BAN</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -1239,19 +1239,19 @@
 </details>
 <h3 id="error-response-handling">Error response handling<a class="headerlink" href="#error-response-handling" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/on-error-response.html"><code>onErrorResponse</code></a> - See <code>awaitCatching</code></li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/ignore.html"><code>Result&lt;Unit&gt;.ignore</code></a> - Ignores and clears the specified error responses</li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/handle.html"><code>Result&lt;T&gt;.handle</code></a> - Supplies a value when the specified error response is caught</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/on-error-response.html"><code>RestResult&lt;T&gt;.onErrorResponse</code></a> — Runs code if the specified error response was returned, see <code>awaitCatching</code> above</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/ignore.html"><code>RestResult&lt;T&gt;.ignore</code></a> — Ignores and clears the specified error responses</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/handle.html"><code>RestResult&lt;T&gt;.handle</code></a> — Replaced the specified error response with the calculated value</li>
 </ul>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/run-ignoring-response.html"><code>runIgnoringResponse</code></a> - Runs the block and ignores the following error responses, throws other exceptions</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/run-ignoring-response.html"><code>runIgnoringResponse</code></a> — Runs the block and ignores the following error responses, throws other exceptions</summary>
 <div class="highlight"><pre><span></span><code><span class="n">runIgnoringResponse</span><span class="p">(</span><span class="n">ErrorResponse</span><span class="p">.</span><span class="na">CANNOT_SEND_TO_USER</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">channel</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">).</span><span class="na">await</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 </details>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/run-ignoring-response-or-null.html"><code>runIgnoringResponseOrNull</code></a> - Runs the block and returns <code>null</code> on the following error responses, throws other exceptions</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/run-ignoring-response-or-null.html"><code>runIgnoringResponseOrNull</code></a> — Runs the block and returns <code>null</code> on the following error responses, throws other exceptions</summary>
 <div class="highlight"><pre><span></span><code><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="n">Guild</span><span class="p">.</span><span class="nf">retrieveBanOrNull</span><span class="p">(</span><span class="n">user</span><span class="p">:</span><span class="w"> </span><span class="n">UserSnowflake</span><span class="p">):</span><span class="w"> </span><span class="n">Ban? </span><span class="o">=</span><span class="w"> </span><span class="n">runIgnoringResponseOrNull</span><span class="p">(</span><span class="n">ErrorResponse</span><span class="p">.</span><span class="na">UNKNOWN_BAN</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">retrieveBan</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="na">await</span><span class="p">()</span><span class="w"> </span><span class="c1">// Can also use awaitOrNullOn, removing runIgnoringResponseOrNull</span>
 <span class="p">}</span>
@@ -1259,42 +1259,42 @@
 </details>
 <h3 id="messages">Messages<a class="headerlink" href="#messages" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-edit-data.html"><code>MessageCreateData.toEditData</code></a> - Does what it says, the edit data will replace the content of the entire message</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-edit-data.html"><code>MessageCreateData.toEditData</code></a> — Does what it says, the edit data will replace the content of the entire message</li>
 <li>
-<p><a href=""><code>MessageEditData.toCreateData</code></a> - Do I need to say anything?</p>
+<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-create-data.html"><code>MessageEditData.toCreateData</code></a> — Do I need to say anything?</p>
 </li>
 <li>
-<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/send.html"><code>MessageCreateData.send</code></a> - Sends the message, this is useful for chaining</p>
+<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/send.html"><code>MessageCreateData.send</code></a> — Sends the message, this is useful for chaining</p>
 </li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/edit.html"><code>MessageEditData.edit</code></a> - Edits with that message, this is useful for chaining</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/edit.html"><code>MessageEditData.edit</code></a> — Edits with that message, this is useful for chaining</li>
 <li>
-<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/replace-with.html"><code>InteractionHook.replaceWith</code></a> - Replaces this interaction's message with the following content</p>
+<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/replace-with.html"><code>InteractionHook.replaceWith</code></a> — Replaces this interaction's message with the following content</p>
 </li>
 <li>
-<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/delete-delayed.html"><code>RestAction&lt;R&gt;.deleteDelayed</code></a> - Deletes the message after the delay, the rest action itself is delayed, not the code execution</p>
+<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/delete-delayed.html"><code>RestAction&lt;R&gt;.deleteDelayed</code></a> — Deletes the message after the delay, the rest action itself is delayed, not the code execution (unless you use <code>await</code>)</p>
 </li>
 </ul>
 <h3 id="entity-retrieval">Entity retrieval<a class="headerlink" href="#entity-retrieval" title="Permanent link">&para;</a></h3>
 <p>Those check the cache before doing a request.</p>
 <ul>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-member-or-null.html"><code>Guild.retrieveMemberOrNull</code></a> - Returns null if the member does not exist</li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-user-or-null.html"><code>JDA.retrieveUserOrNull</code></a> - Returns null if the user does not exist</li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-thread-channel-by-id.html"><code>Guild.retrieveThreadChannelById</code></a> - Retrieves a thread by ID, from any thread container, archived or not.</li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-thread-channel-or-null.html"><code>Guild.retrieveThreadChannelOrNull</code></a> - Same but returns null if it does not exist, if the bot doesn't have access to it, or if the channel isn't a thread.</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-member-or-null.html"><code>Guild.retrieveMemberOrNull</code></a> — Returns null if the member does not exist</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-user-or-null.html"><code>JDA.retrieveUserOrNull</code></a> — Returns null if the user does not exist</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-thread-channel-by-id.html"><code>Guild.retrieveThreadChannelById</code></a> — Retrieves a thread by ID, from any thread container, archived or not.</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/retrieve-thread-channel-or-null.html"><code>Guild.retrieveThreadChannelOrNull</code></a> — Same but returns null if it does not exist, if the bot doesn't have access to it, or if the channel isn't a thread.</li>
 </ul>
 <h3 id="misc">Misc<a class="headerlink" href="#misc" title="Permanent link">&para;</a></h3>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/suppress-content-warning.html"><code>suppressContentWarning</code></a> - Runs the block and suppresses warnings emitted by JDA when reading message content, this is mostly useful in message context commands</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/suppress-content-warning.html"><code>suppressContentWarning</code></a> — Runs the block and suppresses warnings emitted by JDA when reading message content, this is mostly useful in message context commands</summary>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">contentRaw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">suppressContentWarning</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="na">contentRaw</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 </details>
 <ul>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/get-missing-permissions.html"><code>getMissingPermissions</code></a> - Gets the missing permissions from the required permissions, for the given entity, in the specified channel</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/get-missing-permissions.html"><code>getMissingPermissions</code></a> — Gets the missing permissions from the required permissions, for the given entity, in the specified channel</li>
 </ul>
 <p>Any method accepting a Java <code>Duration</code> should also have an extension using Kotlin's <code>Duration</code></p>
 <h2 id="resolvers">Resolvers<a class="headerlink" href="#resolvers" title="Permanent link">&para;</a></h2>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/enum-resolver.html"><code>enumResolver</code></a> - Creates a parameter resolver which transforms arguments into an enum entry, compatible with most handlers</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/enum-resolver.html"><code>enumResolver</code></a> — Creates a parameter resolver which transforms arguments into an enum entry, compatible with most handlers</summary>
 <div class="highlight"><pre><span></span><code><span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MyEnum</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">FIRST</span><span class="p">,</span>
 <span class="w">    </span><span class="n">SECOND</span><span class="p">,</span>
@@ -1312,24 +1312,24 @@
 </code></pre></div>
 </details>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/resolver-factory.html"><code>resolverFactory</code></a> - Creates a factory for parameter resolvers, useful to avoid the boilerplate of using <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/-typed-parameter-resolver-factory/index.html"><code>TypedParameterResolverFactory</code></a></summary>
-<p>See example on <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/resolver-factory.html">the docs</a></p>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/resolver-factory.html"><code>resolverFactory</code></a> — Creates a factory for parameter resolvers, useful to avoid the boilerplate of using <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.parameters/-typed-parameter-resolver-factory/index.html"><code>TypedParameterResolverFactory</code></a></summary>
+<p>See example on <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.service.annotations/-resolver-factory/index.html">the docs</a></p>
 </details>
 <h2 id="io">I/O<a class="headerlink" href="#io" title="Permanent link">&para;</a></h2>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/read-resource.html"><code>readResource</code></a> - Gets an <code>InputStream</code> of a resource from the classpath</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/read-resource.html"><code>readResource</code></a> — Gets an <code>InputStream</code> of a resource from the classpath</summary>
 <div class="highlight"><pre><span></span><code><span class="n">readResource</span><span class="p">(</span><span class="s">&quot;/file.txt&quot;</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">contentStream</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">    </span><span class="c1">// ...</span>
 <span class="p">}</span>
 </code></pre></div>
 </details>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/read-resource-as-string.html"><code>readResourceAsString</code></a> - Gets a resource from the classpath as a <code>String</code></summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/read-resource-as-string.html"><code>readResourceAsString</code></a> — Gets a resource from the classpath as a <code>String</code></summary>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readResourceAsString</span><span class="p">(</span><span class="s">&quot;/file.txt&quot;</span><span class="p">)</span>
 </code></pre></div>
 </details>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/with-resource.html"><code>withResource</code></a> - Uses an <code>InputStream</code> of a resource from the classpath</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/with-resource.html"><code>withResource</code></a> — Uses an <code>InputStream</code> of a resource from the classpath</summary>
 <div class="highlight"><pre><span></span><code><span class="n">withResource</span><span class="p">(</span><span class="s">&quot;/file.txt&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">contentStream</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">    </span><span class="c1">// ...</span>
 <span class="p">}</span>
@@ -1337,7 +1337,7 @@
 </details>
 <h2 id="coroutines">Coroutines<a class="headerlink" href="#coroutines" title="Permanent link">&para;</a></h2>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/named-default-scope.html"><code>namedDefaultScope</code></a> - Creates a <code>CoroutineScope</code> with a thread name and a fixed thread pool</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/named-default-scope.html"><code>namedDefaultScope</code></a> — Creates a <code>CoroutineScope</code> with a thread name and a fixed thread pool</summary>
 <div class="highlight"><pre><span></span><code><span class="c1">// 1 thread named &quot;[feature] timeout&quot;</span>
 <span class="c1">// You can also configure other CoroutineScope characteristics</span>
 <span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">timeoutScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">namedDefaultScope</span><span class="p">(</span><span class="s">&quot;[feature] timeout&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">corePoolSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
@@ -1351,7 +1351,7 @@
 </details>
 <h2 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">&para;</a></h2>
 <details class="example">
-<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/logger-of.html"><code>KotlinLogging.loggerOf</code></a> - Creates a logger targeting the specified class</summary>
+<summary><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/logger-of.html"><code>KotlinLogging.loggerOf</code></a> — Creates a logger targeting the specified class</summary>
 <div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KotlinLogging</span><span class="p">.</span><span class="na">loggerOf</span><span class="o">&lt;</span><span class="n">MyService</span><span class="o">&gt;</span><span class="p">()</span>
 
 <span class="nd">@BService</span>
@@ -1362,13 +1362,13 @@
 </details>
 <h2 id="collections">Collections<a class="headerlink" href="#collections" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/enum-set-of.html"><code>enumSetOf</code></a> - Creates an enum set of the provided type</li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/enum-set-of-all.html"><code>enumSetOfAll</code></a> - Creates an enum set of the provided type, with all the entries in it</li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/enum-map-of.html"><code>enumMapOf</code></a> - Creates a map with an enum key</li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-immutable-list.html"><code>toImmutableList</code></a> - Creates an <em>immutable copy</em> of the list</li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-immutable-set.html"><code>toImmutableSet</code></a> - Creates an <em>immutable copy</em> of the set</li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-immutable-map.html"><code>toImmutableMap</code></a> - Creates an <em>immutable copy</em> of the map</li>
-<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/contains-any.html"><code>containsAny</code></a> - Checks if the collection contains any of the provided elements</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/enum-set-of.html"><code>enumSetOf</code></a> — Creates an enum set of the provided type</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/enum-set-of-all.html"><code>enumSetOfAll</code></a> — Creates an enum set of the provided type, with all the entries in it</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/enum-map-of.html"><code>enumMapOf</code></a> — Creates a map with an enum key</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-immutable-list.html"><code>List&lt;T&gt;.toImmutableList</code></a> — Creates an <em>immutable copy</em> of the list</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-immutable-set.html"><code>Set&lt;T&gt;.toImmutableSet</code></a> — Creates an <em>immutable copy</em> of the set</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/to-immutable-map.html"><code>Map&lt;K, V&gt;.toImmutableMap</code></a> — Creates an <em>immutable copy</em> of the map</li>
+<li><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/contains-any.html"><code>Iterable&lt;T&gt;.containsAny</code></a> — Checks if the collection contains any of the provided elements</li>
 </ul>
 
 

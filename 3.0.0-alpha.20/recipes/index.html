@@ -529,6 +529,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Recipes
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -538,6 +549,49 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#awaiting-a-component-with-coroutines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Awaiting a component with coroutines
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1074,6 +1128,49 @@
 you can do so by contributing directly, or by suggesting (in the <a href="https://discord.gg/frpCcQfvTz">support server</a>)
 what topics should be explained, how they should be structured, give relevant use cases/examples...</p>
 </div>
+<h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
+<h3 id="awaiting-a-component-with-coroutines">Awaiting a component with coroutines<a class="headerlink" href="#awaiting-a-component-with-coroutines" title="Permanent link">&para;</a></h3>
+<p>You can also use components without setting a handler, and instead await the event:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Command</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">SlashClickWaiter</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">buttons</span><span class="p">:</span><span class="w"> </span><span class="n">Buttons</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ApplicationCommand</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@JDASlashCommand</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;click_waiter&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sends a button and waits for it to be clicked&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSlashClickWaiter</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">GuildSlashEvent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buttons</span><span class="p">.</span><span class="na">primary</span><span class="p">(</span><span class="s">&quot;Click me&quot;</span><span class="p">).</span><span class="na">ephemeral</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Make it so this button is only usable once</span>
+<span class="w">            </span><span class="n">singleUse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="w">            </span><span class="c1">// Only allow the caller to use the button</span>
+<span class="w">            </span><span class="n">constraints</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">user</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">event</span><span class="p">.</span><span class="na">replyComponents</span><span class="p">(</span><span class="n">row</span><span class="p">(</span><span class="n">button</span><span class="p">)).</span><span class="na">await</span><span class="p">()</span>
+
+<span class="w">        </span><span class="c1">// Wait for the allowed user to click the button</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">buttonEvent</span><span class="p">:</span><span class="w"> </span><span class="n">ButtonEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">button</span><span class="p">.</span><span class="na">awaitOrNull</span><span class="p">()</span><span class="w"> </span><span class="c1">// (1)!</span>
+<span class="w">            </span><span class="o">?:</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">hook</span>
+<span class="w">                </span><span class="p">.</span><span class="na">replaceWith</span><span class="p">(</span><span class="s">&quot;Expired!&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">awaitUnit</span><span class="p">()</span><span class="w"> </span><span class="c1">// (2)!</span>
+
+<span class="w">        </span><span class="n">buttonEvent</span><span class="p">.</span><span class="na">editMessage</span><span class="p">(</span><span class="s">&quot;!&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="c1">// Replace the entire message</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setReplace</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+<span class="w">            </span><span class="c1">// Delete after 5 seconds</span>
+<span class="w">            </span><span class="p">.</span><span class="na">deleteDelayed</span><span class="p">(</span><span class="m">5.</span><span class="n">seconds</span><span class="p">)</span>
+<span class="w">            </span><span class="c1">// Note that the coroutine will resume *after the message is deleted*</span>
+<span class="w">            </span><span class="p">.</span><span class="na">await</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ol>
+<li>
+<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/await-or-null.html"><code>AwaitableComponent&lt;T&gt;.awaitOrNull</code></a> returns <code>null</code> when the component expired, useful when combined with an elvis operator,
+this is the equivalent of a <code class="highlight"><span class="k">try</span><span class="w"> </span><span class="k">catch</span></code> on <code>TimeoutCancellationException</code>.
+Since there is no timeout set here, the <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-components/-companion/default-ephemeral-timeout.html">default duration</a> is used.</p>
+</li>
+<li>
+<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-unit.html"><code>RestAction&lt;*&gt;.awaitUnit</code></a> is an extension to await and then return <code>Unit</code>, 
+which helps in common scenarios where you want to reply using an elvis operator.</p>
+</li>
+</ol>
 
 
 

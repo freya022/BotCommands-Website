@@ -1217,7 +1217,7 @@ and then use the JDA methods, and finally build.</p>
 <h2 id="persistent-components">Persistent components<a class="headerlink" href="#persistent-components" title="Permanent link">&para;</a></h2>
 <p>They are components that still work after a restart,
 their handlers are methods identified by their handler name,
-set in <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components.annotations/-j-d-a-button-listener/index.html"><code class="highlight"><span class="nd">@JDAButtonListener</span></code></a>) / <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components.annotations/-j-d-a-select-menu-listener/index.html"><code class="highlight"><span class="nd">@JDASelectMenuListener</span></code></a>.</p>
+set in <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components.annotations/-j-d-a-button-listener/index.html"><code class="highlight"><span class="nd">@JDAButtonListener</span></code></a> / <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components.annotations/-j-d-a-select-menu-listener/index.html"><code class="highlight"><span class="nd">@JDASelectMenuListener</span></code></a>.</p>
 <p>Persistent components have a default timeout set in <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-components/-companion/default-persistent-timeout.html"><code>Components.defaultPersistentTimeout</code></a>,
 which can be changed.</p>
 <div class="admonition info">
@@ -1229,8 +1229,8 @@ which can be changed.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2h20L12 12l10 10H2Z"/></svg></span> Kotlin</label><label for="__tabbed_1_2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.5 6.08s-6.84 1.71-3.56 5.48c.97 1.11-.25 2.11-.25 2.11s2.45-1.25 1.31-2.85c-1.06-1.47-1.86-2.2 2.5-4.74m-4.47 1.2C16.08 4.08 14 2 14 2c.84 3.3-2.96 4.3-4.33 6.36-.94 1.4.46 2.91 2.33 4.64-.71-1.7-3.22-3.16.03-5.72M9.37 17.47c-3.08.86 1.88 2.63 5.79.96-.38-.15-.75-.33-1.1-.54-1.36.31-2.76.37-4.14.18-1.31-.16-.55-.6-.55-.6m5.32-1.68c-1.75.38-3.56.47-5.34.26-1.31-.13-.45-.77-.45-.77-3.4 1.13 1.88 2.4 6.6 1.02-.29-.11-.57-.3-.81-.51m3.42 3.3s.57.47-.61.83c-2.28.68-9.43.89-11.41.03-.71-.31.63-.74 1.05-.83.23-.06.46-.08.69-.08-.79-.54-5.13 1.1-2.19 1.56 7.97 1.3 14.54-.6 12.47-1.51m-2.74-4.86c.29-.19.6-.35.92-.49 0 0-1.51.26-3.02.4-1.6.16-3.21.18-4.81.06-2.35-.31 1.29-1.2 1.29-1.2-1.1 0-2.18.26-3.16.75-2.05 1 5.1 1.45 8.78.48m.9 2.42c-.02.04-.04.07-.08.1 5.01-1.31 3.17-4.64.77-3.81-.13.06-.24.14-.31.25.14-.05.28-.09.43-.12 1.2-.24 2.92 1.63-.81 3.58m.13 4.61c-3.01.52-6.09.56-9.12.14 0 0 .46.38 2.81.53 3.6.23 9.13-.13 9.26-1.83.03.01-.23.65-2.95 1.16"/></svg></span> Java</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>In Kotlin, we can use extensions to make sure we call our component handlers in a type-safe manner,
-this way you will have a compile error if the handler and the arguments don't match,
+<p>In Kotlin, we can use extensions to make sure we call our component handlers in a type-safe manner.
+This way, you will have a compiler error if the handler and the arguments don't match,
 it will also allow using handlers without setting a name.</p>
 <p>This can only be used when the input argument types matches the handler parameter types.</p>
 <div class="admonition note">
@@ -1249,7 +1249,7 @@ it will also allow using handlers without setting a name.</p>
 <span class="w">    </span><span class="nd">@JDAButtonListener</span>
 <span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onCookieClick</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">ButtonEvent</span><span class="p">,</span><span class="w"> </span><span class="nd">@ComponentData</span><span class="w"> </span><span class="n">count</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createButton</span><span class="p">(</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
-<span class="w">        </span><span class="n">event</span><span class="p">.</span><span class="na">editComponents</span><span class="p">(</span><span class="n">row</span><span class="p">(</span><span class="n">button</span><span class="p">)).</span><span class="na">await</span><span class="p">()</span>
+<span class="w">        </span><span class="n">event</span><span class="p">.</span><span class="na">editButton</span><span class="p">(</span><span class="n">button</span><span class="p">).</span><span class="na">await</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// Same thing here, no name required</span>
@@ -1267,11 +1267,6 @@ it will also allow using handlers without setting a name.</p>
 
 <span class="w">            </span><span class="c1">// Create a button that can be used even after a restart</span>
 <span class="w">            </span><span class="p">.</span><span class="na">persistent</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="c1">// Make it so this button is only usable once</span>
-<span class="w">                </span><span class="c1">// this is not an issue as we recreate the button everytime.</span>
-<span class="w">                </span><span class="c1">// If this wasn&#39;t usable only once, the timeout would run for each button.</span>
-<span class="w">                </span><span class="n">singleUse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-
 <span class="w">                </span><span class="c1">// Only allow the caller to use the button</span>
 <span class="w">                </span><span class="n">constraints</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">user</span>
 
@@ -1286,47 +1281,6 @@ it will also allow using handlers without setting a name.</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>You can also use components without setting a handler, and instead await the event:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Command</span>
-<span class="kd">class</span><span class="w"> </span><span class="nc">SlashClickWaiter</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">buttons</span><span class="p">:</span><span class="w"> </span><span class="n">Buttons</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ApplicationCommand</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nd">@JDASlashCommand</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;click_waiter&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sends a button and waits for it to be clicked&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSlashClickWaiter</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">GuildSlashEvent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buttons</span><span class="p">.</span><span class="na">primary</span><span class="p">(</span><span class="s">&quot;Click me&quot;</span><span class="p">).</span><span class="na">ephemeral</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="c1">// Make it so this button is only usable once</span>
-<span class="w">            </span><span class="n">singleUse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-
-<span class="w">            </span><span class="c1">// Only allow the caller to use the button</span>
-<span class="w">            </span><span class="n">constraints</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">user</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">event</span><span class="p">.</span><span class="na">replyComponents</span><span class="p">(</span><span class="n">row</span><span class="p">(</span><span class="n">button</span><span class="p">)).</span><span class="na">await</span><span class="p">()</span>
-
-<span class="w">        </span><span class="c1">// Wait for the allowed user to click the button</span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">buttonEvent</span><span class="p">:</span><span class="w"> </span><span class="n">ButtonEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">button</span><span class="p">.</span><span class="na">awaitOrNull</span><span class="p">()</span><span class="w"> </span><span class="c1">// (1)!</span>
-<span class="w">            </span><span class="o">?:</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">hook</span>
-<span class="w">                </span><span class="p">.</span><span class="na">replaceWith</span><span class="p">(</span><span class="s">&quot;Expired!&quot;</span><span class="p">)</span>
-<span class="w">                </span><span class="p">.</span><span class="na">awaitUnit</span><span class="p">()</span><span class="w"> </span><span class="c1">// (2)!</span>
-
-<span class="w">        </span><span class="n">buttonEvent</span><span class="p">.</span><span class="na">editMessage</span><span class="p">(</span><span class="s">&quot;!&quot;</span><span class="p">)</span>
-<span class="w">            </span><span class="c1">// Replace the entire message</span>
-<span class="w">            </span><span class="p">.</span><span class="na">setReplace</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-<span class="w">            </span><span class="c1">// Delete after 5 seconds</span>
-<span class="w">            </span><span class="p">.</span><span class="na">deleteDelayed</span><span class="p">(</span><span class="m">5.</span><span class="n">seconds</span><span class="p">)</span>
-<span class="w">            </span><span class="c1">// Note that the coroutine will resume *after the message is deleted*</span>
-<span class="w">            </span><span class="p">.</span><span class="na">await</span><span class="p">()</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<ol>
-<li>
-<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/await-or-null.html"><code>awaitOrNull</code></a> returns <code>null</code> when the component expired, useful when combined with an elvis operator,
-this is the equivalent of a <code class="highlight"><span class="k">try</span><span class="w"> </span><span class="k">catch</span></code> on <code>TimeoutCancellationException</code>.
-Since there is no timeout set here, the <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-components/-companion/default-timeout.html">default duration</a> is used.</p>
-</li>
-<li>
-<p><a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.utils/await-unit.html"><code>awaitUnit</code></a> is an extension to await and then return <code>Unit</code>, 
-which helps in common scenarios where you want to reply using an elvis operator.</p>
-</li>
-</ol>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nd">@Command</span>
@@ -1353,7 +1307,7 @@ which helps in common scenarios where you want to reply using an elvis operator.
 <span class="w">    </span><span class="nd">@JDAButtonListener</span><span class="p">(</span><span class="n">COOKIE_BUTTON_NAME</span><span class="p">)</span>
 <span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onCookieClick</span><span class="p">(</span><span class="n">ButtonEvent</span><span class="w"> </span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="nd">@ComponentData</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kd">final</span><span class="w"> </span><span class="n">Button</span><span class="w"> </span><span class="n">newButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createButton</span><span class="p">(</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">        </span><span class="n">event</span><span class="p">.</span><span class="na">editComponents</span><span class="p">(</span><span class="n">ActionRow</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">newButton</span><span class="p">)).</span><span class="na">queue</span><span class="p">();</span>
+<span class="w">        </span><span class="n">event</span><span class="p">.</span><span class="na">editButton</span><span class="p">(</span><span class="n">newButton</span><span class="p">).</span><span class="na">queue</span><span class="p">();</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// Same thing here, names don&#39;t collide with other types of listener</span>
@@ -1371,11 +1325,6 @@ which helps in common scenarios where you want to reply using an elvis operator.
 
 <span class="w">                </span><span class="c1">// Create a button that can be used even after a restart</span>
 <span class="w">                </span><span class="p">.</span><span class="na">persistent</span><span class="p">()</span>
-
-<span class="w">                </span><span class="c1">// Make it so this button is only usable once</span>
-<span class="w">                </span><span class="c1">// this is not an issue as we recreate the button everytime.</span>
-<span class="w">                </span><span class="c1">// If this wasn&#39;t usable only once, the timeout would run for each button.</span>
-<span class="w">                </span><span class="p">.</span><span class="na">singleUse</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
 
 <span class="w">                </span><span class="c1">// Only allow the caller to use the button</span>
 <span class="w">                </span><span class="p">.</span><span class="na">constraints</span><span class="p">(</span><span class="n">interactionConstraints</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
@@ -1411,10 +1360,77 @@ their handlers are callbacks, which can also have a timeout set, and also use ca
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nd">@Command</span>
 <span class="kd">class</span><span class="w"> </span><span class="nc">SlashEphemeralClicker</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">buttons</span><span class="p">:</span><span class="w"> </span><span class="n">Buttons</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ApplicationCommand</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nd">@JDASlashCommand</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;clicker&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">subcommand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ephemeral&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Creates a button you can click until the bot restarts&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nd">@JDASlashCommand</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;clicker&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">subcommand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ephemeral&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Creates a button you can click until the bot restarts or 15 minutes later&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSlashClicker</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">GuildSlashEvent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createButton</span><span class="p">(</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
 <span class="w">        </span><span class="n">event</span><span class="p">.</span><span class="na">replyComponents</span><span class="p">(</span><span class="n">row</span><span class="p">(</span><span class="n">button</span><span class="p">)).</span><span class="na">await</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createButton</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">IDeferrableCallback</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="n">Button</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Create a primary-styled button</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">buttons</span><span class="p">.</span><span class="na">primary</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">count</span><span class="s"> cookies&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="c1">// Sets the emoji on the button,</span>
+<span class="w">            </span><span class="c1">// this can be an unicode emoji, an alias or even a custom emoji</span>
+<span class="w">            </span><span class="p">.</span><span class="na">withEmoji</span><span class="p">(</span><span class="s">&quot;cookie&quot;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="c1">// Create a button that can be used until the bot restarts</span>
+<span class="w">            </span><span class="p">.</span><span class="na">ephemeral</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Only allow the caller to use the button</span>
+<span class="w">                </span><span class="n">constraints</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">user</span>
+
+<span class="w">                </span><span class="c1">// Run this callback 15 minutes after the button has been created</span>
+<span class="w">                </span><span class="c1">// The timeout gets cancelled if the button is invalidated</span>
+<span class="w">                </span><span class="n">timeout</span><span class="p">(</span><span class="m">15.</span><span class="n">minutes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">event</span><span class="p">.</span><span class="na">hook</span><span class="p">.</span><span class="na">isExpired</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">event</span><span class="p">.</span><span class="na">hook</span><span class="p">.</span><span class="na">retrieveOriginal</span><span class="p">()</span>
+<span class="w">                            </span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">components</span><span class="p">.</span><span class="na">asDisabled</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                            </span><span class="p">.</span><span class="na">flatMap</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">hook</span><span class="p">.</span><span class="na">editOriginalComponents</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                            </span><span class="p">.</span><span class="na">queue</span><span class="p">()</span>
+<span class="w">                        </span><span class="n">event</span><span class="p">.</span><span class="na">hook</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="s">&quot;You clicked </span><span class="si">$</span><span class="n">count</span><span class="s"> cookies!&quot;</span><span class="p">).</span><span class="na">setEphemeral</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="na">queue</span><span class="p">()</span>
+<span class="w">                    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;User finished clicking </span><span class="si">$</span><span class="n">count</span><span class="s"> cookies&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">                </span><span class="c1">// When clicked, run this callback</span>
+<span class="w">                </span><span class="n">bindTo</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">buttonEvent</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                    </span><span class="kd">val</span><span class="w"> </span><span class="nv">newButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createButton</span><span class="p">(</span><span class="n">buttonEvent</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">buttonEvent</span><span class="p">.</span><span class="na">editButton</span><span class="p">(</span><span class="n">newButton</span><span class="p">).</span><span class="na">await</span><span class="p">()</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>You can also use components without setting a handler, and instead await the event:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Command</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">SlashEphemeralAwaitingClicker</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">buttons</span><span class="p">:</span><span class="w"> </span><span class="n">Buttons</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ApplicationCommand</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@JDASlashCommand</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;clicker&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">subcommand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ephemeral_await&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Creates a button you can click until the bot restarts or 15 minutes later&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSlashClicker</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">GuildSlashEvent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createButton</span><span class="p">(</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+<span class="w">        </span><span class="n">event</span><span class="p">.</span><span class="na">replyComponents</span><span class="p">(</span><span class="n">row</span><span class="p">(</span><span class="n">button</span><span class="p">)).</span><span class="na">await</span><span class="p">()</span>
+
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nv">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<span class="w">        </span><span class="c1">// When the 15 minutes expire, the loop is stopped due to a TimeoutCancellationException</span>
+<span class="w">        </span><span class="c1">// and the code below runs</span>
+<span class="w">        </span><span class="n">withTimeoutOrNull</span><span class="p">(</span><span class="m">15.</span><span class="n">seconds</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Wait for the button to be clicked and edit it with a new label</span>
+<span class="w">                </span><span class="c1">// you can keep the same button id as we keep awaiting the same one</span>
+<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">buttonEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">button</span><span class="p">.</span><span class="na">await</span><span class="p">()</span>
+<span class="w">                </span><span class="n">buttonEvent</span><span class="p">.</span><span class="na">editButton</span><span class="p">(</span><span class="n">button</span><span class="p">.</span><span class="na">withLabel</span><span class="p">(</span><span class="s">&quot;</span><span class="si">${</span><span class="o">++</span><span class="n">count</span><span class="si">}</span><span class="s"> cookies&quot;</span><span class="p">)).</span><span class="na">await</span><span class="p">()</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// Try to disable components if the interaction is still usable</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">event</span><span class="p">.</span><span class="na">hook</span><span class="p">.</span><span class="na">isExpired</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">event</span><span class="p">.</span><span class="na">hook</span><span class="p">.</span><span class="na">retrieveOriginal</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">components</span><span class="p">.</span><span class="na">asDisabled</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                </span><span class="p">.</span><span class="na">flatMap</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">hook</span><span class="p">.</span><span class="na">editOriginalComponents</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                </span><span class="p">.</span><span class="na">queue</span><span class="p">()</span>
+<span class="w">            </span><span class="n">event</span><span class="p">.</span><span class="na">hook</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="s">&quot;You clicked </span><span class="si">$</span><span class="n">count</span><span class="s"> cookies!&quot;</span><span class="p">).</span><span class="na">setEphemeral</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="na">queue</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;User finished clicking </span><span class="si">$</span><span class="n">count</span><span class="s"> cookies&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createButton</span><span class="p">(</span><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="n">Interaction</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="n">Button</span><span class="w"> </span><span class="p">{</span>
@@ -1426,24 +1442,11 @@ their handlers are callbacks, which can also have a timeout set, and also use ca
 
 <span class="w">            </span><span class="c1">// Create a button that can be used until the bot restarts</span>
 <span class="w">            </span><span class="p">.</span><span class="na">ephemeral</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="c1">// Make it so this button is only usable once</span>
-<span class="w">                </span><span class="c1">// this is not an issue as we recreate the button everytime.</span>
-<span class="w">                </span><span class="c1">// If this wasn&#39;t usable only once, the timeout would run for each button.</span>
-<span class="w">                </span><span class="n">singleUse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-
 <span class="w">                </span><span class="c1">// Only allow the caller to use the button</span>
 <span class="w">                </span><span class="n">constraints</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">user</span>
 
-<span class="w">                </span><span class="c1">// Run this callback after the button hasn&#39;t been used for a day</span>
-<span class="w">                </span><span class="c1">// The timeout gets cancelled if the button is invalidated</span>
-<span class="w">                </span><span class="n">timeout</span><span class="p">(</span><span class="m">1.</span><span class="n">days</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;User finished clicking </span><span class="si">$</span><span class="n">count</span><span class="s"> cookies&quot;</span><span class="p">)</span>
-<span class="w">                </span><span class="p">}</span>
-
-<span class="w">                </span><span class="c1">// When clicked, run this callback</span>
-<span class="w">                </span><span class="n">bindTo</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">buttonEvent</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">                    </span><span class="kd">val</span><span class="w"> </span><span class="nv">newButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createButton</span><span class="p">(</span><span class="n">buttonEvent</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
-<span class="w">                    </span><span class="n">buttonEvent</span><span class="p">.</span><span class="na">editComponents</span><span class="p">(</span><span class="n">row</span><span class="p">(</span><span class="n">newButton</span><span class="p">)).</span><span class="na">await</span><span class="p">()</span>
+<span class="w">                </span><span class="n">bindTo</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">)</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
@@ -1475,26 +1478,21 @@ their handlers are callbacks, which can also have a timeout set, and also use ca
 <span class="w">                </span><span class="c1">// Create a button that can be used until the bot restarts</span>
 <span class="w">                </span><span class="p">.</span><span class="na">ephemeral</span><span class="p">()</span>
 
-<span class="w">                </span><span class="c1">// Make it so this button is only usable once</span>
-<span class="w">                </span><span class="c1">// this is not an issue as we recreate the button everytime.</span>
-<span class="w">                </span><span class="c1">// If this wasn&#39;t usable only once, the timeout would run for each button.</span>
-<span class="w">                </span><span class="p">.</span><span class="na">singleUse</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-
 <span class="w">                </span><span class="c1">// Only allow the caller to use the button</span>
 <span class="w">                </span><span class="p">.</span><span class="na">constraints</span><span class="p">(</span><span class="n">interactionConstraints</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                    </span><span class="n">interactionConstraints</span><span class="p">.</span><span class="na">addUsers</span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="na">getUser</span><span class="p">());</span>
 <span class="w">                </span><span class="p">})</span>
 
-<span class="w">                </span><span class="c1">// Run this callback after the button hasn&#39;t been used for a day</span>
+<span class="w">                </span><span class="c1">// Run this callback 15 minutes after the button has been created</span>
 <span class="w">                </span><span class="c1">// The timeout gets cancelled if the button is invalidated</span>
-<span class="w">                </span><span class="p">.</span><span class="na">timeout</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofDays</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="p">.</span><span class="na">timeout</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofMinutes</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;User finished clicking &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; cookies&quot;</span><span class="p">);</span>
 <span class="w">                </span><span class="p">})</span>
 
 <span class="w">                </span><span class="c1">// When clicked, run this callback</span>
 <span class="w">                </span><span class="p">.</span><span class="na">bindTo</span><span class="p">(</span><span class="n">buttonEvent</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                    </span><span class="kd">final</span><span class="w"> </span><span class="n">Button</span><span class="w"> </span><span class="n">newButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createButton</span><span class="p">(</span><span class="n">buttonEvent</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">                    </span><span class="n">buttonEvent</span><span class="p">.</span><span class="na">editComponents</span><span class="p">(</span><span class="n">ActionRow</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">newButton</span><span class="p">)).</span><span class="na">queue</span><span class="p">();</span>
+<span class="w">                    </span><span class="n">buttonEvent</span><span class="p">.</span><span class="na">editButton</span><span class="p">(</span><span class="n">newButton</span><span class="p">).</span><span class="na">queue</span><span class="p">();</span>
 <span class="w">                </span><span class="p">})</span>
 <span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 <span class="w">    </span><span class="p">}</span>
@@ -1506,12 +1504,12 @@ their handlers are callbacks, which can also have a timeout set, and also use ca
 </div>
 <h2 id="component-groups">Component groups<a class="headerlink" href="#component-groups" title="Permanent link">&para;</a></h2>
 <p>Component groups can be created in any component factory, and allow you to configure one timeout for all components.</p>
-<p>Also, when one of them gets invalidated (after being used with <code>singleUse = true</code>),
+<p>Also, when one of them gets invalidated (after being used with <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components.builder/-i-unique-component/single-use.html"><code>singleUse = true</code></a>),
 the entire group gets invalidated.</p>
 <p>For example, this can be useful when the user needs to use a single component, once.</p>
 <div class="admonition warning">
 <p class="admonition-title">Ephemeral components in groups</p>
-<p>If you put ephemeral components in your group, you must disable the timeout with <code>noTimeout()</code>.</p>
+<p>If you put ephemeral components in your group, you must disable the timeout with <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components.builder/-i-timeoutable-component/no-timeout.html"><code>noTimeout()</code></a>.</p>
 </div>
 <p>The timeout works similarly to components, except the annotated handler is a <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components.annotations/-group-timeout-handler/index.html"><code class="highlight"><span class="nd">@GroupTimeoutHandler</span></code></a>.</p>
 <div class="admonition example">
@@ -1652,11 +1650,11 @@ to then invalidate them when the interaction expires.</p>
 <p class="admonition-title">Example</p>
 <p>The built-in paginators stores all the <code>int</code> IDs of the components used in paginators,
 as they cannot be deleted on each page change, as the user might reuse a component they made themselves.
-Storing them this way is more efficient and allows deletion when the paginator expires, using <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-abstract-component-factory/delete-components-by-ids.html">deleteComponentsByIds</a>.</p>
+Storing them this way is more efficient and allows deletion when the paginator expires, using <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-abstract-component-factory/delete-components-by-ids.html"><code>deleteRows</code></a>.</p>
 </div>
 </li>
 <li>
-<p>In other, rare cases, you have the component instances (not the JDA ones), for which you can use <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-abstract-component-factory/delete-components.html">deleteComponents</a></p>
+<p>In other, rare cases, you have the component instances (not the JDA ones), for which you can use <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-abstract-component-factory/delete-components.html"><code>deleteComponents</code></a></p>
 </li>
 </ul>
 <h2 id="filtering">Filtering<a class="headerlink" href="#filtering" title="Permanent link">&para;</a></h2>
@@ -1793,7 +1791,8 @@ it runs when one of your filters fails.</p>
 <p>Just like application commands, components can be rate limited.
 However, you will need to help the library differentiate components from each other (unlike commands which are differentiated by their names).</p>
 <p>You will first need to create a <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components.ratelimit/-component-rate-limit-reference/index.html"><code>ComponentRateLimitReference</code></a>,
-you can do that with <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-abstract-component-factory/create-rate-limit-reference.html"><code>createRateLimitReference</code></a>, present in any component factory (<code>Components</code>, <code>Buttons</code>, <code>SelectMenus</code>).</p>
+you can do that with <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-abstract-component-factory/create-rate-limit-reference.html"><code>createRateLimitReference</code></a>,
+present in any component factory (<a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-components/index.html"><code>Components</code></a>, <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-buttons/index.html"><code>Buttons</code></a>, <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.components/-select-menus/index.html"><code>SelectMenus</code></a>).</p>
 <p>The <code>group</code> associated with the <code>discriminator</code> will need to be unique,
 as to differentiate components (referenced by <code>discriminator</code>) using the same rate limiter (referenced by <code>group</code>).</p>
 <div class="admonition example">
