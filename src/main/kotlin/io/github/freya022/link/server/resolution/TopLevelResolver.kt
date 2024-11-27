@@ -19,7 +19,8 @@ object TopLevelResolver {
                 logger.trace(e) { "Failed to get member candidates of ${kotlinClass.simpleNestedName}" }
                 emptyList()
             }
-        }
+        }.distinctBy { it.url }
+
         if (candidates.isEmpty()) {
             throw LinkException("'$request' is neither a top-level function or property")
         } else if (candidates.size > 1) {
@@ -37,8 +38,6 @@ object TopLevelResolver {
         val baseLink = kmPackage.getBaseLink(kotlinClass)
         val functionCandidates = kmPackage.functions
             .filter { function -> function.name == request.identifier }
-            // Good news! This takes the *first* one, just like how overload resolution works in Dokka!
-            .distinctBy { function -> function.name }
             .map(::KotlinFunction)
             .map { function -> LinkRepresentation(function.toSimpleString(), "$baseLink/${function.name.toKDocCase()}.html") }
 

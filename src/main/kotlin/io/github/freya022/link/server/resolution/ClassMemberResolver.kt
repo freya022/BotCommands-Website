@@ -22,7 +22,8 @@ object ClassMemberResolver {
                     logger.trace(e) { "Failed to get member candidates of ${kotlinClass.simpleNestedName}" }
                     emptyList()
                 }
-            }
+            }.distinctBy { it.url }
+
             if (candidates.isEmpty()) {
                 throw LinkException("'$memberName' is neither a function, property or enum value in '$className'")
             } else if (candidates.size > 1) {
@@ -43,8 +44,6 @@ object ClassMemberResolver {
         val functionCandidates = when {
             request.functionsRequested -> kmClass.functions
                 .filter { function -> function.name == memberName }
-                // Good news! This takes the *first* one, just like how overload resolution works in Dokka!
-                .distinctBy { function -> function.name }
                 .map { function -> LinkRepresentation(memberLabel, "$baseLink/${function.name.toKDocCase()}.html") }
             else -> emptyList()
         }
