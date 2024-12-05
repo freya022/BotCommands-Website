@@ -43,3 +43,9 @@ See [[InjectedJDAEvent]].
 
 ### FirstGuildReadyEvent
 See [[FirstGuildReadyEvent]].
+
+### PreFirstGatewayConnectEvent
+This will be useful if you want to run tasks that must be done
+*before* JDA connects to the gateway and listens to events,
+while still having access to a (uninitialized) `JDA` instance,
+see [[PreFirstGatewayConnectEvent]].
