@@ -155,9 +155,7 @@ As always, make sure to check against the command path as well as the option's d
 This lets you reject application commands if the user tries to use them too often.
 
 #### Using an (anonymous) rate limiter
-Use the [`#!java @RateLimit`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.annotations/-rate-limit/index.html)
-or [`#!java @Cooldown`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.annotations/-cooldown/index.html)
-to define one on an application command.
+Use [[RateLimit]] or [[Cooldown]] to define one on an application command.
 
 === "Kotlin"
     ```kotlin
