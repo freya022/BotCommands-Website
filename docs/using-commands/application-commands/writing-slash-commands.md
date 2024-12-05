@@ -172,7 +172,7 @@ to define one on an application command.
 #### Using an existing rate limiter
 Nothing as simple as using [[RateLimitReference]] with the `group` of a rate limiter defined in a `RateLimitProvider`.
 
-!!! info "Learn how to create a rate limiter on the [Rate limiting wiki](../../using-botcommands/ratelimit.md)"
+!!! info "Learn how to create a rate limiter with ["Defining a rate limit"](../../using-botcommands/ratelimit.md)"
 
 === "Kotlin"
     ```kotlin
@@ -322,7 +322,7 @@ either using [`autocompleteByFunction`][[SlashCommandOptionBuilder#autocompleteB
 ### Rate limiting
 This lets you reject application commands if the user tries to use them too often.
 
-!!! info "Learn how to create a rate limiter on the [Rate limiting wiki](../../using-botcommands/ratelimit.md)"
+!!! info "Learn how to create a rate limiter with ["Defining a rate limit"](../../using-botcommands/ratelimit.md)"
 
 #### Using an (anonymous) rate limiter
 ```kotlin

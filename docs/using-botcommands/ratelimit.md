@@ -47,7 +47,7 @@ refer to the example attached to them.
 
 However, you can also create a custom one by implementing [`RateLimiter`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.ratelimit/-rate-limiter/index.html), which is the combination of:
 
-- [`BucketAccessor`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.ratelimit.bucket/-bucket-accessor/index.html): Retrieves a [Bucket] based on the context
+- [`BucketAccessor`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.ratelimit.bucket/-bucket-accessor/index.html): Retrieves a `Bucket` based on the context
 - [`RateLimitHandler`](https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.commands.ratelimit.handler/-rate-limit-handler/index.html): Handles when an interaction has been rate limited (often to tell the user about it)
 
 !!! tip
