@@ -31,6 +31,12 @@ The first type parameter is the type of your resolver implementation, and the se
     As you can see, this defines the slash command's option to be a string, 
     and provides predefined choices, letting you easily use them in your commands.
 
+!!! tip "Creating resolvers for parametrized types"
+
+    You can also extend [[TypedParameterResolver]] for use with parametrized type,
+    Kotlin users can pass a KType directly, using `typeOf`,
+    but Java users can use a [[KotlinTypeToken]] instead.
+
 ### Built-in resolver generators
 
 The framework also provides functions in `Resolvers` to do most of the work for some types,
