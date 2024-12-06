@@ -12,40 +12,20 @@ Use [[RequiredIntents]].
 ## Listening to events
 Use [[BEventListener]].
 
+### Listener modes
+See [[BEventListener#mode]]
+
 ## Lifecycle events
 Here is a list of events in the order they fire:
 
 ### Initialization events
-#### Status change event
-See [[BStatusChangeEvent]].
-
-#### Pre-load event
-See [[PreLoadEvent]].
-
-#### Load event
-See [[LoadEvent]].
-
-#### Post-load event
-See [[PostLoadEvent]].
-
-#### Ready event
-See [[BReadyEvent]].
-
-### Injected JDA event
-See [[InjectedJDAEvent]].
-
-### First guild ready event
-See [[FirstGuildReadyEvent]].
+- [[BStatusChangeEvent]]
+- [[PreLoadEvent]]
+- [[LoadEvent]]
+- [[PostLoadEvent]]
+- [[BReadyEvent]]
 
 ## JDA events
-### InjectedJDAEvent
-See [[InjectedJDAEvent]].
-
-### FirstGuildReadyEvent
-See [[FirstGuildReadyEvent]].
-
-### PreFirstGatewayConnectEvent
-This will be useful if you want to run tasks that must be done
-*before* JDA connects to the gateway and listens to events,
-while still having access to a (uninitialized) `JDA` instance,
-see [[PreFirstGatewayConnectEvent]].
+- [[InjectedJDAEvent]]
+- [[PreFirstGatewayConnectEvent]]
+- [[FirstGuildReadyEvent]]
