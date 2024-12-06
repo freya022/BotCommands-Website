@@ -182,5 +182,5 @@ Any method accepting a Java `Duration` should also have an extension using Kotli
 - [[containsAny]] — Checks if the collection contains any of the provided elements
 
 ## Emojis
-- [[lazyEmoji]] — Lazily fetches the Unicode from the given shortcode
-- [[lazyJDAEmoji]] — Lazily fetches a `UnicodeEmoji` from the given shortcode
+- [[toUnicodeEmoji]] — Converts a JEmoji's `Emoji` into a JDA `UnicodeEmoji`
+- [[lazyUnicodeEmoji]] — Lazily fetches the Unicode from the given shortcode
