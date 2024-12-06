@@ -12,34 +12,20 @@ Use [[RequiredIntents]].
 ## Listening to events
 Use [[BEventListener]].
 
+### Listener modes
+See [[BEventListener#mode]]
+
 ## Lifecycle events
 Here is a list of events in the order they fire:
 
 ### Initialization events
-#### Status change event
-See [[BStatusChangeEvent]].
-
-#### Pre-load event
-See [[PreLoadEvent]].
-
-#### Load event
-See [[LoadEvent]].
-
-#### Post-load event
-See [[PostLoadEvent]].
-
-#### Ready event
-See [[BReadyEvent]].
-
-### Injected JDA event
-See [[InjectedJDAEvent]].
-
-### First guild ready event
-See [[FirstGuildReadyEvent]].
+- [[BStatusChangeEvent]]
+- [[PreLoadEvent]]
+- [[LoadEvent]]
+- [[PostLoadEvent]]
+- [[BReadyEvent]]
 
 ## JDA events
-### InjectedJDAEvent
-See [[InjectedJDAEvent]].
-
-### FirstGuildReadyEvent
-See [[FirstGuildReadyEvent]].
+- [[InjectedJDAEvent]]
+- [[PreFirstGatewayConnectEvent]]
+- [[FirstGuildReadyEvent]]

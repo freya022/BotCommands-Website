@@ -154,9 +154,9 @@ As always, make sure to check against the command path as well as the option's d
 ### Rate limiting
 This lets you reject application commands if the user tries to use them too often.
 
-[//]: # (TODO when making the dedicated rate limit wiki, put a cancelling rate limit section with the voice state check, remove from slash command rl examples)
-
 #### Using an (anonymous) rate limiter
+Use [[RateLimit]] or [[Cooldown]] to define one on an application command.
+
 === "Kotlin"
     ```kotlin
     --8<-- "wiki/commands/slash/SlashRateLimit.kt:rate_limit-kotlin"
@@ -170,8 +170,10 @@ This lets you reject application commands if the user tries to use them too ofte
 #### Using an existing rate limiter
 Nothing as simple as using [[RateLimitReference]] with the `group` of a rate limiter defined in a `RateLimitProvider`.
 
+!!! info "Learn how to create a rate limiter with ["Defining a rate limit"](../../using-botcommands/ratelimit.md)"
+
 === "Kotlin"
-    ```kotlin title="WikiRateLimitProvider.kt"
+    ```kotlin
     --8<-- "wiki/ratelimit/WikiRateLimitProvider.kt:rate_limit_provider-kotlin"
     ```
 
@@ -180,7 +182,7 @@ Nothing as simple as using [[RateLimitReference]] with the `group` of a rate lim
     ```
 
 === "Java"
-    ```java title="WikiRateLimitProvider.java"
+    ```java
     --8<-- "wiki/java/ratelimit/WikiRateLimitProvider.java:rate_limit_provider-java"
     ```
 
@@ -318,6 +320,8 @@ either using [`autocompleteByFunction`][[SlashCommandOptionBuilder#autocompleteB
 ### Rate limiting
 This lets you reject application commands if the user tries to use them too often.
 
+!!! info "Learn how to create a rate limiter with ["Defining a rate limit"](../../using-botcommands/ratelimit.md)"
+
 #### Using an (anonymous) rate limiter
 ```kotlin
 --8<-- "wiki/commands/slash/SlashRateLimitDsl.kt:rate_limit-kotlin_dsl"
@@ -326,7 +330,7 @@ This lets you reject application commands if the user tries to use them too ofte
 #### Using an existing rate limiter
 Nothing as simple as using `rateLimitReference` with the `group` of a rate limiter defined in a [[RateLimitProvider]].
 
-```kotlin title="WikiRateLimitProvider.kt"
+```kotlin
 --8<-- "wiki/ratelimit/WikiRateLimitProvider.kt:rate_limit_provider-kotlin"
 ```
 

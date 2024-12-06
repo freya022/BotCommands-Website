@@ -48,16 +48,6 @@ public class SlashRateLimit extends ApplicationCommand {
     )
     @JDASlashCommand(name = "rate_limit")
     public void onSlashRateLimit(GuildSlashEvent event) {
-        // Assuming we have voice states cached
-        if (!event.getMember().getVoiceState().inAudioChannel()) {
-            // Don't consume a token as this command requires to be in a voice channel
-            // Note that this would be easier done using a filter,
-            // as no token would be used, and would also be cleaner.
-            event.cancelRateLimit();
-            event.reply("You must be in a voice channel").queue();
-            return;
-        }
-
         event.reply("Hello world!").queue();
     }
 }

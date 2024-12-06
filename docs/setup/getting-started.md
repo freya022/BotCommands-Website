@@ -162,6 +162,11 @@ and still be able to get it as a service.
     Configuration of the framework is then done either by using application properties (with the prefix being either `botcommands` or `jda`),
     or by implementing configurers, see the [`BConfigurer` inheritors][[BConfigurer]].
 
+    !!! tip
+        
+        You can also use the [Spring developer tools](https://docs.spring.io/spring-boot/reference/using/devtools.html)
+        to speed up your development cycle, a few options can be configured with `jda.devtools.*` properties.
+
 ??? tip "Kotlin - Using a custom `CoroutineEventManager`"
 
     I recommend creating a custom `CoroutineEventManager`,

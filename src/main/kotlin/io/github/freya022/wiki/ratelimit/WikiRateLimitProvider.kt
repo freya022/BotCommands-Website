@@ -17,6 +17,7 @@ import kotlin.time.Duration.Companion.minutes
 class WikiRateLimitProvider : RateLimitProvider {
 
     override fun declareRateLimit(manager: RateLimitManager) {
+        // --8<-- [start:bucket_configuration-kotlin]
         // Lets the user use the command 5 times in an hour, but also 2 times in 2 minutes to prevent spam
         val bucketConfiguration = Buckets.spikeProtected(
             capacity = 5,               // 5 uses
@@ -24,7 +25,9 @@ class WikiRateLimitProvider : RateLimitProvider {
             spikeCapacity = 2,          // 2 uses
             spikeDuration = 2.minutes   // Give 2 tokens every 2 minutes
         )
+        // --8<-- [end:bucket_configuration-kotlin]
 
+        // --8<-- [start:rate_limiter-kotlin]
         val rateLimiter = RateLimiter.createDefault(
             // Apply to each user, regardless of channel/guild
             RateLimitScope.USER,
@@ -33,6 +36,7 @@ class WikiRateLimitProvider : RateLimitProvider {
             // Give our constant bucket configuration
             configurationSupplier = bucketConfiguration.toSupplier()
         )
+        // --8<-- [end:rate_limiter-kotlin]
 
         // Register, any command can use it
         manager.rateLimit(RATE_LIMIT_GROUP, rateLimiter)

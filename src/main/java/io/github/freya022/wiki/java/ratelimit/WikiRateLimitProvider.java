@@ -21,14 +21,17 @@ public class WikiRateLimitProvider implements RateLimitProvider {
 
     @Override
     public void declareRateLimit(@NotNull RateLimitManager rateLimitManager) {
+        // --8<-- [start:bucket_configuration-java]
         // Lets the user use the command 5 times in an hour, but also 2 times in 2 minutes to prevent spam
-        final var bucketConfiguration = Buckets.spikeProtected(
-                5,              // 5 uses
+        final var bucketConfiguration = Buckets.createSpikeProtected(
+                5,                      // 5 uses
                 Duration.ofHours(1),    // Gives 5 tokens gradually, during an hour (1 token every 12 minutes)
                 2,                      // 2 uses
                 Duration.ofMinutes(2)   // Give 2 tokens every 2 minutes
         );
+        // --8<-- [end:bucket_configuration-java]
 
+        // --8<-- [start:rate_limiter-java]
         final var rateLimiter = RateLimiter.createDefault(
                 // Apply to each user, regardless of channel/guild
                 RateLimitScope.USER,
@@ -37,6 +40,7 @@ public class WikiRateLimitProvider implements RateLimitProvider {
                 // Delete the message telling the user about the remaining rate limit after it expires
                 true
         );
+        // --8<-- [end:rate_limiter-java]
 
         // Register
         rateLimitManager.rateLimit(RATE_LIMIT_GROUP, rateLimiter);

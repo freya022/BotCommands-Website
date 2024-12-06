@@ -66,8 +66,24 @@ In addition to what [JDA-KTX](https://github.com/MinnDevelopment/jda-ktx) offers
 ### Entity retrieval
 Those check the cache before doing a request.
 
+#### Members
 - [[retrieveMemberOrNull]] — Returns null if the member does not exist
+- [[retrieveMemberByIdOrNull]] — Returns null if the member does not exist
+
+#### Users
 - [[retrieveUserOrNull]] — Returns null if the user does not exist
+- [[retrieveUserByIdOrNull]] — Returns null if the user does not exist
+
+#### Stickers
+- [[retrieveStickerOrNull]] — Returns null if the sticker does not exist
+
+#### Entitlements
+- [[retrieveEntitlementByIdOrNull]] — Returns null if the entitlement does not exist
+
+#### Webhooks
+- [[retrieveWebhookByIdOrNull]] — Returns null if the webhook does not exist
+
+#### Threads (unofficial support)
 - [[retrieveThreadChannelById]] — Retrieves a thread by ID, from any thread container, archived or not.
 - [[retrieveThreadChannelOrNull]] — Same but returns null if it does not exist, if the bot doesn't have access to it, or if the channel isn't a thread.
 
@@ -164,3 +180,7 @@ Any method accepting a Java `Duration` should also have an extension using Kotli
 - [[toImmutableSet]] — Creates an _immutable copy_ of the set
 - [[toImmutableMap]] — Creates an _immutable copy_ of the map
 - [[containsAny]] — Checks if the collection contains any of the provided elements
+
+## Emojis
+- [[toUnicodeEmoji]] — Converts a JEmoji's `Emoji` into a JDA `UnicodeEmoji`
+- [[lazyUnicodeEmoji]] — Lazily fetches the Unicode from the given shortcode

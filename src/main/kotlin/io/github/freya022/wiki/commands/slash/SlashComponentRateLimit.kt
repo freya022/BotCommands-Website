@@ -6,18 +6,19 @@ import io.github.freya022.botcommands.api.commands.application.ApplicationComman
 import io.github.freya022.botcommands.api.commands.application.slash.GuildSlashEvent
 import io.github.freya022.botcommands.api.commands.application.slash.annotations.JDASlashCommand
 import io.github.freya022.botcommands.api.components.Buttons
-import io.github.freya022.botcommands.api.utils.EmojiUtils
+import io.github.freya022.botcommands.api.core.utils.lazyUnicodeEmoji
 import io.github.freya022.wiki.java.ratelimit.WikiRateLimitProvider
 import io.github.freya022.wiki.switches.wiki.WikiLanguage
 import net.dv8tion.jda.api.entities.emoji.UnicodeEmoji
+import net.fellbaum.jemoji.Emojis
 
 @WikiLanguage(WikiLanguage.Language.KOTLIN)
 // --8<-- [start:component_rate_limit-kotlin]
 @Command
 class SlashComponentRateLimit(private val buttons: Buttons) : ApplicationCommand() {
     // This is to prevent an unnecessary load on startup, emojis are slow
-    private val arrowUp: UnicodeEmoji by lazy { EmojiUtils.resolveJDAEmoji("arrow_up") }
-    private val arrowDown: UnicodeEmoji by lazy { EmojiUtils.resolveJDAEmoji("arrow_down") }
+    private val arrowUp: UnicodeEmoji by lazyUnicodeEmoji { Emojis.UP_ARROW }
+    private val arrowDown: UnicodeEmoji by lazyUnicodeEmoji { Emojis.DOWN_ARROW }
 
     // The combination of the group and discriminator must be unique
     private val upvoteRateLimitReference = buttons.createRateLimitReference(
