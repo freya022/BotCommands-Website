@@ -1,10 +1,15 @@
 [
   {
-    "version": "3.0.0-alpha.20",
-    "title": "3.0.0-alpha.20",
+    "version": "3.0.0-alpha.21",
+    "title": "3.0.0-alpha.21",
     "aliases": [
       "3.X"
     ]
+  },
+  {
+    "version": "3.0.0-alpha.20",
+    "title": "3.0.0-alpha.20",
+    "aliases": []
   },
   {
     "version": "3.0.0-alpha.19",
