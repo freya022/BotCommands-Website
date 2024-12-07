@@ -108,20 +108,19 @@ nav:
         - using-botcommands/dependency-injection/index.md
         - Creating services: using-botcommands/dependency-injection/creating-services.md
         - Retrieving services: using-botcommands/dependency-injection/retrieving-services.md
-      - Using events: using-botcommands/events.md
+      - Events: using-botcommands/events.md
       - Database: using-botcommands/database.md
       - Rate limiting: using-botcommands/ratelimit.md
-#      - Localization: foo
+      - Localization: using-botcommands/localization.md
       - Kotlin extensions: using-botcommands/extensions.md
       - Java parameter names: using-botcommands/parameter-names.md
   - Using commands:
       - Common details: using-commands/common-command-details.md
-#      - Text commands:
-#        - Creating text commands: foo
-#        - Built-in help command: foo
+      - Text commands:
+        - using-commands/text-commands/index.md
+        - Creating text commands: using-commands/text-commands/writing-text-commands.md
       - Application commands:
         - Creating slash commands: using-commands/application-commands/writing-slash-commands.md
-#        - Rate limiting / cooldowns: foo
         - Using autocomplete: using-commands/application-commands/using-autocomplete.md
         # TODO move to Using BotCommands, make a global overview and then a bunch of sections for each resolver type
         - Adding option resolvers: using-commands/application-commands/option-resolvers.md
