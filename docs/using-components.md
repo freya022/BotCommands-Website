@@ -1,7 +1,5 @@
 # Using components
 
-!!! warning "This requires a [database](using-botcommands/database.md) to be set up!"
-
 Components provided by the framework are your usual Discord components with additional features,
 they can be configured to:
 
@@ -17,6 +15,40 @@ as well as [[Components]] to delete them manually and make groups.
 
     When configuring components, you need to use the framework's methods first, 
     and then use the JDA methods, and finally build.
+
+## Enabling components
+
+=== "Build-in DI"
+    Components require a database to be set up, see [this wiki page](using-botcommands/database.md) for more details.
+    
+    You can then enable them with the `enable` property in the `components` configuration block.
+
+    === "Kotlin"
+        ```kotlin
+        BotCommands.create {
+            ...
+            
+            components {
+                enable = true
+            }
+        }        
+        ```
+
+    === "Java"
+        ```java
+        BotCommands.create(config -> {
+            ...
+
+            config.components(components -> {
+                components.enable(true);
+            });
+        });
+        ```
+
+=== "Spring IoC"
+    Components require a database to be set up, see [this wiki page](using-botcommands/database.md) for more details.
+
+    You can then enable them with the `botcommands.components.enable` property set to `true`.
 
 !!! tip "Disabling classes depending on components"
 
