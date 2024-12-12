@@ -79,6 +79,10 @@ object Main {
                     // Enables usage of components
                     enable = true
                 }
+
+                appEmojis {
+                    enable = true
+                }
             }
 
             // There is no JDABuilder going on here, it's taken care of in Bot

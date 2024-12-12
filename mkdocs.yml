@@ -112,6 +112,7 @@ nav:
       - Database: using-botcommands/database.md
       - Rate limiting: using-botcommands/ratelimit.md
       - Localization: using-botcommands/localization.md
+      - Application emojis: using-botcommands/app-emojis.md
       - Kotlin extensions: using-botcommands/extensions.md
       - Java parameter names: using-botcommands/parameter-names.md
   - Using commands:
