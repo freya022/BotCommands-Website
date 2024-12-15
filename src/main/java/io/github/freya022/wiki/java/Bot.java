@@ -23,6 +23,7 @@ public class Bot extends JDAService {
         this.config = config;
     }
 
+    // If you use Spring, you can return values provided by JDAConfiguration in the getters below
     @NotNull
     @Override
     public Set<CacheFlag> getCacheFlags() {

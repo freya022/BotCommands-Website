@@ -15,6 +15,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag
 // --8<-- [start:jdaservice-kotlin]
 @BService
 class Bot(private val config: Config) : JDAService() {
+    // If you use Spring, you can set the properties below to the values provided by JDAConfiguration
     override val intents: Set<GatewayIntent> = defaultIntents(/* _Additional_ intents */ GatewayIntent.GUILD_VOICE_STATES)
 
     override val cacheFlags: Set<CacheFlag> = setOf(/* _Additional_ cache flags */ CacheFlag.VOICE_STATE)

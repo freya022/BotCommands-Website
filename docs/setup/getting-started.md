@@ -195,8 +195,8 @@ and provides a way for the framework to check missing intents and missing cache 
 
 !!! warning "Spring properties"
 
-    If you use Spring, you will need to set gateway intents and cache flags in your environment,
-    using `jda.intents` and `jda.cache-flags` respectively.
+    If you use Spring, you will need to put gateway intents and cache flags in your environment.
+    You will then be able to set your gateway intents and cache flags using the values provided by [[JDAConfiguration]].
 
 === "Kotlin"
 
