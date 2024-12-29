@@ -21,3 +21,38 @@ Since there is no timeout set here, the [default duration][[Components#defaultEp
 
 2. [[awaitUnit]] is an extension to await and then return `Unit`, 
 which helps in common scenarios where you want to reply using an elvis operator.
+
+## Annotated runtime filters
+!!! note
+
+    As any runtime filter, you will also need a single rejection handler,
+    see [for application commands][[ApplicationCommandRejectionHandler]],
+    [for text commands][[TextCommandRejectionHandler]].
+
+### Gating a command with a single role
+
+Instead of using `#!java @Filter` directly, we use it as a meta-annotation to improve readability,
+as well as making it easier to copy the role requirement.
+
+=== "Kotlin"
+    
+
+=== "Java"
+    
+
+You can then use the annotation such as `#!java @RequiresStaffRole` on your text/application command,
+you are also able to use multiple of these filters with different roles if necessary.
+
+### Gating a command with values from the filter annotation
+
+This shows how to gate a command with permissions,
+of course this already exists with [[UserPermissions]],
+but this is to show how you can read the values of the command.
+
+=== "Kotlin"
+    
+
+=== "Java"
+    
+
+You can then use the annotation such as `#!java @RequiredPermissions(Permission.MANAGE_SERVER)` on your text/application command.
