@@ -6,7 +6,7 @@ you can now add up to 2000 emojis on your application.
 While you can add them manually in your dashboard, they are:
 
 * Not very practical
-* Requires you to hardcode them
+* Requires you to hardcode them (unless you fetch them yourself, but that's even more effort)
 * Can only be used for one application, making it annoying when you switch from a test bot to your production bot.
 
 Which is why you can let the framework upload them for you!
