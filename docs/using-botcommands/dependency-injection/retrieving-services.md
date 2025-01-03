@@ -137,7 +137,7 @@ the list will then contain all instantiable instances with the specified type.
     which are usable.
 
 ### Lazy services
-Lazy service retrieval enables you to get lazily-created service, delaying the initialization,
+Lazy service retrieval enables you to get lazily created service, delaying the initialization,
 or to get services that are not yet available, such as manually injected services (like `JDA`).
 
 !!! example "Retrieving a lazy service"
@@ -148,8 +148,8 @@ or to get services that are not yet available, such as manually injected service
         `#!kotlin private val helpCommand: IHelpCommand by serviceContainer.lazy()`
 
     === "Java"
-        Request a `Lazy` with the element type being the requested service, 
-        and then get the service when needed by using `Lazy#getValue`.
+        Request a [[LazyService]] with the element type being the requested service, 
+        and then get the service when needed by using `getValue()`.
 
 !!! note
 
@@ -168,7 +168,8 @@ you can prevent failure by using Kotlin's [nullable][null-safety] / [optional][d
 but Java users will need a runtime-retained `#!java @Nullable` annotation 
 (such as `#!java @javax.annotation.Nullable`, or, in checker-framework or JSpecify) or `#!java @Optional`.
 
-!!! note "Lazy nullability"
+!!! note "Optional lazy services"
 
-    Lazy services can also have their element type be marked as nullable, 
-    for example, `#!java Lazy<@Nullable IHelpCommand>`.
+    When you are about to request the service from [[LazyService]],
+    you can use [canCreateService][[LazyService#canCreateService]] or [getServiceError][[LazyService#getServiceError]]
+    to check if it is available at this point in time.
