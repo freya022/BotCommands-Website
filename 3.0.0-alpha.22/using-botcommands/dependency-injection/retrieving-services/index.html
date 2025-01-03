@@ -1471,7 +1471,7 @@ the list will then contain all instantiable instances with the specified type.</
 which are usable.</p>
 </div>
 <h3 id="lazy-services">Lazy services<a class="headerlink" href="#lazy-services" title="Permanent link">&para;</a></h3>
-<p>Lazy service retrieval enables you to get lazily-created service, delaying the initialization,
+<p>Lazy service retrieval enables you to get lazily created service, delaying the initialization,
 or to get services that are not yet available, such as manually injected services (like <code>JDA</code>).</p>
 <div class="admonition example">
 <p class="admonition-title">Retrieving a lazy service</p>
@@ -1482,8 +1482,8 @@ or to get services that are not yet available, such as manually injected service
 <p><code class="highlight"><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">helpCommand</span><span class="p">:</span><span class="w"> </span><span class="n">IHelpCommand</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">serviceContainer</span><span class="p">.</span><span class="na">lazy</span><span class="p">()</span></code></p>
 </div>
 <div class="tabbed-block">
-<p>Request a <code>Lazy</code> with the element type being the requested service, 
-and then get the service when needed by using <code>Lazy#getValue</code>.</p>
+<p>Request a <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.service/-lazy-service/index.html"><code>LazyService</code></a> with the element type being the requested service, 
+and then get the service when needed by using <code>getValue()</code>.</p>
 </div>
 </div>
 </div>
@@ -1501,9 +1501,10 @@ you can prevent failure by using Kotlin's <a href="https://kotlinlang.org/docs/n
 but Java users will need a runtime-retained <code class="highlight"><span class="nd">@Nullable</span></code> annotation 
 (such as <code class="highlight"><span class="nd">@javax.annotation.Nullable</span></code>, or, in checker-framework or JSpecify) or <code class="highlight"><span class="nd">@Optional</span></code>.</p>
 <div class="admonition note">
-<p class="admonition-title">Lazy nullability</p>
-<p>Lazy services can also have their element type be marked as nullable, 
-for example, <code class="highlight"><span class="n">Lazy</span><span class="o">&lt;</span><span class="nd">@Nullable</span><span class="w"> </span><span class="n">IHelpCommand</span><span class="o">&gt;</span></code>.</p>
+<p class="admonition-title">Optional lazy services</p>
+<p>When you are about to request the service from <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.service/-lazy-service/index.html"><code>LazyService</code></a>,
+you can use <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.service/-lazy-service/can-create-service.html">canCreateService</a> or <a href="https://docs.bc.freya02.dev/-bot-commands/io.github.freya022.botcommands.api.core.service/-lazy-service/get-service-error.html">getServiceError</a>
+to check if it is available at this point in time.</p>
 </div>
 
 
